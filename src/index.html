@@ -2,10 +2,80 @@
 <html lang="en">
   <head>
     <title>Nostr accounting program (nap)</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+.menu {
+  float: left;
+  width: 20%;
+  text-align: center;
+}
+
+.menu a {
+  background-color: #e5e5e5;
+  padding: 8px;
+  margin-top: 7px;
+  display: block;
+  width: 100%;
+  color: black;
+}
+
+.main {
+  float: left;
+  width: 60%;
+  padding: 0 20px;
+}
+
+.right {
+  background-color: #e5e5e5;
+  float: left;
+  width: 20%;
+  padding: 15px;
+  margin-top: 7px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 620px) {
+  /* For mobile phones: */
+  .menu, .main, .right {
+    width: 100%;
+  }
+}
+    </style>
   </head>
-  
-  <body>
-    <h1>Nostr accounting program (nap)</h1>
-    <p>tbd</p>
+
+  <body style="font-family:Verdana;color:#aaaaaa;">
+
+    <div style="background-color:#e5e5e5;padding:15px;text-align:center;">
+      <h1>Nostr accounting program (nap)</h1>
+    </div>
+
+    <div style="overflow:auto">
+      <div class="menu">
+        <a href="#">General Overview</a>
+        <a href="#">Ledger / Journal Overview</a>
+        <a href="#">Ledger Postings Overview</a>
+        <a href="#">Update Ledger / Journal Overview</a>
+        <a href="#">Create Ledger Posting</a>
+      </div>
+
+      <div class="main">
+        <h2>General Overview</h2>
+        <p>tbd</p>
+      </div>
+
+      <div class="right">
+        <h2>About</h2>
+        <p>npub and relay, tbd.</p>
+      </div>
+    </div>
+
+    <div style="background-color:#e5e5e5;text-align:center;padding:10px;margin-top:7px;"></div>
+
   </body>
 </html>
