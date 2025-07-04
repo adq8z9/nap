@@ -9,31 +9,40 @@
 
   <body style="font-family:Verdana;color:#aaaaaa;">
 
-    <div style="background-color:#e5e5e5;padding:15px;text-align:center;">
-      <h1>Nostr accounting program (nap)</h1>
+    <div class="topnav">
+      <h1 id="topNavTitle">Nostr accounting program (nap)</h1>
     </div>
-
+    
     <div style="overflow:auto">
       <div class="menu">
-        <a href="#">General Overview</a>
-        <a href="#">Ledger / Journal Overview</a>
-        <a href="#">Ledger Postings Overview</a>
-        <a href="#">Update Ledger / Journal Overview</a>
-        <a href="#">Create Ledger Posting</a>
+        <a class="active" href="#generalOverview">Reports</a>
+        <a href="#ledgerOverview">Ledger</a>
+        <a href="#postingsOverview">Ledger Postings</a>
+        <a href="#updateLedger">Update Ledger</a>
+        <a href="#createPosting">Create Ledger Posting</a>
+        <a href="#switchLogIn">Switch LogIn Data</a>
       </div>
 
       <div class="main">
-        <h2>General Overview</h2>
-        <p>tbd</p>
+        <h2 id="mainTitle">General Overview</h2>
+        <p id="mainText">tbd</p>
       </div>
 
       <div class="right">
-        <h2>About</h2>
-        <p>npub, ledger/journal and relay, tbd.</p>
+        <h2>Current Context</h2>
+        <h3 id="header_npub_right">logged in npub</h3>
+        <p id="npub_right">adq8z9<br>npub1udq:ysaaq8z9</p>
+        <h3 id="header_ledger_right">logged in accounting ledger</h3>
+        <p id="ledger_right">name of ledger<br>kind-value:p-value-shortened:d-value</p>
+        <h3 id="header_relay_right">used relay(s) for acc ledger</h3>
+        <p id="relay_right">wss://damus.io<br>wss://secondr.ar</p>
       </div>
     </div>
 
-    <div style="background-color:#e5e5e5;text-align:center;padding:10px;margin-top:7px;"></div>
+    <div class="bottomnav">
+      <h4 id="bottomNavHeader">Le accounting NUD - fan:</h4>
+      <a id= "bottomNavLink" href="https://github.com/adq8z9/le_accounting_nud">https://github.com/adq8z9/le_accounting_nud</a>
+    </div>
 
   </body>
 </html>
