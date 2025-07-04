@@ -1,38 +1,106 @@
 * {
   box-sizing: border-box;
+  font-family:Verdana;
+}
+
+.topnav {
+  background-color: #0000000d;
+  padding: 15px;
+  text-align: left;f
+}
+
+#topNavTitle {
+  color: #7c3aed;
 }
 
 .menu {
   float: left;
   width: 20%;
-  text-align: center;
+  text-align: left;
 }
 
 .menu a {
-  background-color: #e5e5e5;
+  background-color: #0000000d;
+  color: #606770;
   padding: 8px;
   margin-top: 7px;
   display: block;
   width: 100%;
-  color: black;
+}
+
+.menu a.active {
+  background-color: #0000000d;
+  color: #ff8570;
 }
 
 .main {
   float: left;
   width: 60%;
   padding: 0 20px;
+  background-color: #00000002;
+}
+
+#mainTitle {
+  color: #ff8570;
+}
+
+#mainText {
+  color: #1c1e21;
 }
 
 .right {
-  background-color: #e5e5e5;
+  background-color: #0000000d;
+  color: #7c3aed;
   float: left;
   width: 20%;
   padding: 15px;
   margin-top: 7px;
-  text-align: center;
+  text-align: right;
 }
 
-@media only screen and (max-width: 620px) {
+#header_npub_right {
+  color: #606770;
+}
+
+#npub_right {
+  color: #ff8570;
+  word-break: break-all;
+}
+
+#header_ledger_right {
+  color: #606770;
+}
+
+#ledger_right {
+  color: #ff8570;
+  word-break: break-all;
+}
+
+#header_relay_right {
+  color: #606770;
+}
+
+#relay_right {
+  color: #ff8570;
+  word-break: break-all;
+}
+
+.bottomnav {
+  background-color: #0000000d;
+  text-align: left;
+  padding: 10px;
+  margin-top: 7px;
+}
+
+#bottomNavHeader {
+  color: #7c3aed;
+}
+
+#bottomNavLink {
+  color: #606770;
+}
+
+@media only screen and (max-width: 700px) {
   /* For mobile phones: */
   .menu, .main, .right {
     width: 100%;
