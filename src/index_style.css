@@ -38,13 +38,14 @@
   width: 60%;
   padding: 0 20px;
   background-color: #00000002;
+  display:none;
 }
 
-#mainTitle {
+.mainTitle {
   color: #ff8570;
 }
 
-#mainText {
+.mainText {
   color: #1c1e21;
 }
 
