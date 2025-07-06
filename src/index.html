@@ -52,13 +52,19 @@
 
       <div id="switchLogIn" class="main">
         <h2 class="mainTitle">Switch LogIn Data</h2>
-        <p class="mainText">tbd</p>
+	      <h3 class="mainSubTitle">log in nostr account:</h3>
+	      <p class="mainText" id="npubLoginInfo">Currently logged in: no nostr account logged in</p>
+        <input type="text" onfocus="this.value=''" value="log in with nsec1..." class="mainText" id="npubLoginInput">
+        <button onclick="logInNpub()">Log In</button>
+        <p class="mainText" id="npubLoginInputFeedback"></p>
+        <h3 class="mainSubTitle">log in accounting ledger:</h3>
+
       </div>
 
       <div class="right">
         <h2>Current Context</h2>
         <h3 id="header_npub_right">logged in npub</h3>
-        <p id="npub_right">adq8z9<br>npub1udq:ysaaq8z9</p>
+        <p id="npub_right">not logged in</p>
         <h3 id="header_ledger_right">logged in accounting ledger</h3>
         <p id="ledger_right">name of ledger<br>kind-value:p-value-shortened:d-value</p>
         <h3 id="header_relay_right">used relay(s) for acc ledger</h3>
