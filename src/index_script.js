@@ -17,3 +17,9 @@ function openView(evt, oView) {
   document.getElementById(oView).style.display = "block";
   evt.currentTarget.className += " active";
 }
+
+function getPK() {
+  let sk = NostrTools.generateSecretKey();
+  let pk = NostrTools.getPublicKey();
+  console.log(pk);
+}
