@@ -1,5 +1,12 @@
 function defaultOpen() {
-	document.getElementById("defaultOpen").click();
+  document.getElementById("defaultOpen").click();
+
+  let loggedinNpub = localStorage.getItem("liNpub");
+  console.log(loggedinNpub);
+  if(loggedinNpub !== null){
+    document.getElementById("npub_right").innerHTML = loggedinNpub;
+    document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + loggedinNpub;
+  }
 }
 
 function openView(evt, oView) {
@@ -18,8 +25,16 @@ function openView(evt, oView) {
   evt.currentTarget.className += " active";
 }
 
-function getPK() {
+function logInNpub() {
   let sk = NostrTools.generateSecretKey();
-  let pk = NostrTools.getPublicKey();
+  console.log(sk);
+  document.getElementById("npubLoginInput").value = sk;
+  let pk = NostrTools.getPublicKey(sk);
   console.log(pk);
+  localStorage.setItem("liNpub", pk);
+  
+  document.getElementById("npubLoginInfo").innerHTML = localStorage.getItem("liNpub");
+  document.getElementById("npub_right").innerHTML = localStorage.getItem("liNpub");
+  let feedback = "successfull log in";
+  document.getElementById("npubLoginInputFeedback").innerHTML = feedback;
 }
