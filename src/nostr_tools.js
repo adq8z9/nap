@@ -1,3 +1,5 @@
+<!-- This file is a copy of nostr-tools from https://github.com/nbd-wtf/nostr-tools . --> 
+
 "use strict";
 var NostrTools = (() => {
   var __defProp = Object.defineProperty;
