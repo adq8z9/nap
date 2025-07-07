@@ -1,11 +1,10 @@
 function defaultOpen() {
   document.getElementById("defaultOpen").click();
 
-  let loggedinNpub = localStorage.getItem("liNpub");
-  console.log(loggedinNpub);
-  if(loggedinNpub !== null){
-    document.getElementById("npub_right").innerHTML = "User Name tbd<br>" + loggedinNpub;
-    document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + loggedinNpub;
+  let loggedinPubkey = localStorage.getItem("liPubkey");
+  if(loggedinPubkey !== null){
+    document.getElementById("npub_right").innerHTML = NostrTools.nip19.npubEncode(loggedinPubkey);
+    document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + NostrTools.nip19.npubEncode(loggedinPubkey);
   }
 }
 
@@ -27,19 +26,15 @@ function openView(evt, oView) {
 
 function logInNpub() {
   let sk = document.getElementById("npubLoginInput").value;
-  console.log(sk);
   try {
     let skDec = NostrTools.nip19.decode(sk);
-    console.log(skDec);
     document.getElementById("npubLoginInput").value = sk;
     let pk = NostrTools.getPublicKey(skDec.data);
-    console.log(pk);
     let pkEnc = NostrTools.nip19.npubEncode(pk);
-    console.log(pkDec);
-    localStorage.setItem("liNpub", pkEnc);
-    localStorage.setItem("liNsec", skDec.data);
-    document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + localStorage.getItem("liNpub");
-    document.getElementById("npub_right").innerHTML = "User Name tbd<br>" + localStorage.getItem("liNpub");
+    localStorage.setItem("liPubkey", pk);
+    localStorage.setItem("liSeckey", skDec.data);
+    document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + NostrTools.nip19.npubEncode(localStorage.getItem("liPubkey"));
+    document.getElementById("npub_right").innerHTML = NostrTools.nip19.npubEncode(localStorage.getItem("liPubkey"));
     let feedback = "Successfull log in.";
     document.getElementById("npubLoginInputFeedback").innerHTML = feedback;
   } catch (error) {
