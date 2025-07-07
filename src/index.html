@@ -52,13 +52,18 @@
 
       <div id="switchLogIn" class="main">
         <h2 class="mainTitle">Switch LogIn Data</h2>
-	      <h3 class="mainSubTitle">log in nostr account:</h3>
-	      <p class="mainText" id="npubLoginInfo">Currently logged in: no nostr account logged in</p>
+	<h3 class="mainSubTitle">log in nostr account:</h3>
+	<p class="mainText" id="npubLoginInfo">Currently logged in: no nostr account logged in</p>
+        <p class="mainText">Log in with nip19 nsec1...:</p>
         <input type="text" onfocus="this.value=''" value="log in with nsec1..." class="mainText" id="npubLoginInput">
         <button onclick="logInNpub()">Log In</button>
         <p class="mainText" id="npubLoginInputFeedback"></p>
         <h3 class="mainSubTitle">log in accounting ledger:</h3>
-
+        <p class="mainText" id="accledgerLoginInfo">Currently logged in: no accounting ledger logged in</p>
+        <p class="mainText">Log in with nip19 naddr... of accounting ledger:</p>
+        <input type="text" onfocus="this.value=''" value="log in with naddr..." class="mainText" id="accledgerLoginInput">
+        <button onclick="logInAccLedger()">Log In</button>
+        <p class="mainText" id="accledgerLoginInputFeedback"></p>
       </div>
 
       <div class="right">
