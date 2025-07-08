@@ -1,12 +1,7 @@
 function defaultOpen() {
   document.getElementById("defaultOpen").click();
 
-  let loggedinPubkey = localStorage.getItem("liPubkey");
-  if(loggedinPubkey !== null){
-    document.getElementById("npub_right").innerHTML = NostrTools.nip19.npubEncode(loggedinPubkey);
-    document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + NostrTools.nip19.npubEncode(loggedinPubkey);
-  }
-
+  setLoginData();
   setNewLedgerTemplate();
 }
 
@@ -26,6 +21,20 @@ function openView(evt, oView) {
   evt.currentTarget.className += " active";
 }
 
+function sendNewLedgerEvent() {
+  let nleString = document.getElementById("newledgerInput").value;
+  console.log(nleString);
+  try {
+    let nle = JSON.parse(nleString);
+    console.log(nle);
+    let feedback = "Successfully sent. Naddr is: tbd (please copy for log in)";
+    document.getElementById("sendNewLedgerFeedback").innerHTML = feedback;
+  } catch (error) {
+    let feedback = "Send failed. " + error;
+    document.getElementById("sendNewLedgerFeedback").innerHTML = feedback;
+  }
+}
+
 function logInNpub() {
   let sk = document.getElementById("npubLoginInput").value;
   try {
@@ -40,8 +49,7 @@ function logInNpub() {
     let feedback = "Successfull log in.";
     document.getElementById("npubLoginInputFeedback").innerHTML = feedback;
   } catch (error) {
-    console.error(error);
-    let feedback = "Log In failed. Nsec not in correct format.";
+    let feedback = "Log In failed. Nsec not in correct format. " + error;
     document.getElementById("npubLoginInputFeedback").innerHTML = feedback;
   }
 }
@@ -51,4 +59,12 @@ function setNewLedgerTemplate() {
   const newLedgerTemplate = JSON.parse(text);  
   const newLedgerTemplateString = JSON.stringify(newLedgerTemplate);
   document.getElementById("newledgerInput").innerHTML = newLedgerTemplateString;
+}
+
+function setLoginData() {
+  let loggedinPubkey = localStorage.getItem("liPubkey");
+  if(loggedinPubkey !== null){
+    document.getElementById("npub_right").innerHTML = NostrTools.nip19.npubEncode(loggedinPubkey);
+    document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + NostrTools.nip19.npubEncode(loggedinPubkey);
+  }
 }
