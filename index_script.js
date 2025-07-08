@@ -6,6 +6,8 @@ function defaultOpen() {
     document.getElementById("npub_right").innerHTML = NostrTools.nip19.npubEncode(loggedinPubkey);
     document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + NostrTools.nip19.npubEncode(loggedinPubkey);
   }
+
+  setNewLedgerTemplate();
 }
 
 function openView(evt, oView) {
@@ -42,4 +44,11 @@ function logInNpub() {
     let feedback = "Log In failed. Nsec not in correct format.";
     document.getElementById("npubLoginInputFeedback").innerHTML = feedback;
   }
+}
+
+function setNewLedgerTemplate() {
+  const text = '{"tags" : [ [ "d" , "input d value (id)"], [ "r" , "input relay for accounting work, for several include additional r-lines"], [ "server" , "input (bloowsom) file storage relay for accounting work, for several include additional server-lines"], [ "p" , "include pubkey of people who should be allowed to book on ledger, for several include additional p-lines"] ], "content" : { "name" : "name of acc ledger", "description" : "description of ledger", "acc_units" : [ "allow unit code for entries, optional more with ," ] } }';
+  const newLedgerTemplate = JSON.parse(text);  
+  const newLedgerTemplateString = JSON.stringify(newLedgerTemplate);
+  document.getElementById("newledgerInput").innerHTML = newLedgerTemplateString;
 }
