@@ -54,7 +54,23 @@
 
       <div id="createLedger" class="main">
         <h2 class="mainTitle">Create Ledger</h2>
-        <p class="mainText">tbd</p>
+        <p class="mainText">For the required format of the ledger entry see <a href="https://github.com/adq8z9/le_accounting_nud" style="color:#606770">https://github.com/adq8z9/le_accounting_nud</a>.<br>You should just put in the "tags" and "content" data here. The rest is put in automatically.</p>
+	<textarea id="newledgerInput" placeholder="put in json 'content' field as described under https://github.com/adq8z9/le_accounting_nud here...  
+{ 'tags' : [...],
+'content' : {...} }">{
+    tags : [
+        [ d , <input d value (id)>],
+        [ r , <input relay for accounting work, for several include additional r-lines>],
+        [ server , <input (bloowsom) file storage relay for accounting work, for several include additional server-lines],
+        [ p , <include pubkey of people who should be allowed to book on ledger, for several include additional p-lines],
+    ],
+    content : {
+        name : <name of acc ledger>,
+        description : <description of ledger>,
+        acc_units : [ <allow unit code for entries>, <optional more> ],
+    }
+}
+        </textarea>
       </div>
     
       <div id="switchLogIn" class="main">
