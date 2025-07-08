@@ -55,6 +55,8 @@
       <div id="createLedger" class="main">
         <h2 class="mainTitle">Create Ledger</h2>
         <p class="mainText">For the required format of the ledger entry see <a href="https://github.com/adq8z9/le_accounting_nud" style="color:#606770">https://github.com/adq8z9/le_accounting_nud</a>.<br>You should just put in the "tags" and "content" data here. The rest is put in automatically.</p>
+	<button onclick="sendNewLedgerEvent()">Send new ledger event</button>
+        <p class="mainText" id="sendNewLedgerFeedback"></p>
 	<textarea id="newledgerInput" placeholder="put in json 'content' field as described under https://github.com/adq8z9/le_accounting_nud here...  
 { 'tags' : [...],
 'content' : {...} }"></textarea>
