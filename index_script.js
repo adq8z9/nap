@@ -51,7 +51,9 @@ async function logInLedger(nAddrLedger) {
     const event = await pool.get(
       relays,
       {
-        ids: [ nAddrLedgerDec.data.identifier ],
+        kind: nAddrLedgerDec.data.kind,
+        tags: [ ["d", nAddrLedgerDec.data.identifier] ],
+        pubkey: nAddrLedgerDec.data.pubkey
       },
       );
     console.log('it exists indeed on this relay:', event);
@@ -71,10 +73,12 @@ async function logInLedger(nAddrLedger) {
 
 async function createAndLogInLedger() {
   try {
+    const d = "SELV";
+    const relays = ["wss://relay.damus.io"];
     const sELVData = {
       tags: [
         ["d", "SELV"],
-        ["r", "wss://relay.damus.io"],
+        ["r", relays[0]],
         ["p", localStorage.getItem("liPubkey")]
       ], 
       content: {
@@ -90,8 +94,6 @@ async function createAndLogInLedger() {
         ]
       }   
     }
-    const d = "SELV";
-    const relays = ["wss://relay.damus.io"];
     let sk = localStorage.getItem("liSeckey");
     let sELV = NostrTools.finalizeEvent({
       kind: 37701,
