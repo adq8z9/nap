@@ -40,7 +40,7 @@ function logInNpub() {
   }
 }
 
-async function logInLedger(nAddrLedger) {
+async function logInLedger() {
   let nAddrLedger = document.getElementById("ledgerLoginInput").value;
   try {
     let nAddrLedgerDec = NostrTools.nip19.decode(nAddrLedger);
@@ -58,6 +58,9 @@ async function logInLedger(nAddrLedger) {
       );
     console.log('it exists indeed on this relay:', event);
     if(event == null) { throw "Event not found on Relay!"; }
+    let isGood = NostrTools.verifyEvent(event);
+    console.log(isGood);
+    if (!isGood) { throw "Event does not match signature!"; }
     
     let eventString = JSON.stringify(event);
     localStorage.setItem("liLedgerNaddr", nAddrLedger);
@@ -101,12 +104,15 @@ async function createAndLogInLedger() {
       tags: sELVData.tags,
       content: JSON.stringify(sELVData.content),
     }, sk);
+    console.log(sELV);
+    let isGood = NostrTools.verifyEvent(sELV);
+    console.log(isGood);
     let sELVString = JSON.stringify(sELV);
     let sELVNaddr = NostrTools.nip19.naddrEncode( { "identifier": d, "relays": relays, "pubkey": sELV.pubkey, "kind": sELV.kind } );
     
     //send event to Relay
     const pool = new NostrTools.SimplePool();
-    const re = await pool.publish(relays, sELV);
+    await Promise.any(pool.publish(relays, sELV));
     const event = await pool.get(
       relays,
       {
