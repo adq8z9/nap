@@ -39,6 +39,18 @@ function logInNpub() {
   }
 }
 
+function logInLedger() {
+  console.log("log in Ledger");
+  let feedback = "Successfully selected accounting ledger. View ledger under Menu-point 'Ledger'.";
+  document.getElementById("ledgerLoginInputFeedback").innerHTML = feedback;
+}
+
+function createAndLogInLedger() {
+  console.log("create and log in Ledger");
+  let feedback = "Successfully created and selected simple example ledger. View ledger under Menu-point 'Ledger'.";
+  document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = feedback;
+}
+
 function setLoginData() {
   let loggedinPubkey = localStorage.getItem("liPubkey");
   if(loggedinPubkey !== null){
