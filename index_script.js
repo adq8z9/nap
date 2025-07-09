@@ -39,7 +39,7 @@ function logInNpub() {
     document.getElementById("npubLoginInputFeedback").innerHTML = feedback;
   }
 }
-
+/*
 async function logInLedger() {
   let nAddrLedger = document.getElementById("ledgerLoginInput").value;
   try {
@@ -73,11 +73,11 @@ async function logInLedger() {
     document.getElementById("ledgerLoginInputFeedback").innerHTML = feedback;
   }
 }
-
+*/
 async function createAndLogInLedger() {
   try {
     const d = "SELV";
-    const relays = ["wss://relay.damus.io"];
+    const relays = ["ws://dummy.relay"];
     const sELVData = {
       tags: [
         ["d", "SELV"],
@@ -86,13 +86,13 @@ async function createAndLogInLedger() {
       ], 
       content: {
         name: "Simple Example Ledger Event", 
-        acc_unit: ["BTC", "EUR"],
+        acc_units: ["BTC", "EUR"],
         acc_accounts: [ 
           { id: "acc_0001", name: "Wallet" }, 
           { id: "acc_3001", name: "Inflows" }, 
           { id: "acc_4001", name: "Outflows" } 
         ],
-        accountants: [
+        acc_accountants: [
           { p: localStorage.getItem("liPubkey") }
         ]
       }   
@@ -109,7 +109,8 @@ async function createAndLogInLedger() {
     console.log(isGood);
     let sELVString = JSON.stringify(sELV);
     let sELVNaddr = NostrTools.nip19.naddrEncode( { "identifier": d, "relays": relays, "pubkey": sELV.pubkey, "kind": sELV.kind } );
-    
+    console.log(sELVNaddr);
+    /*
     //send event to Relay
     const pool = new NostrTools.SimplePool();
     await Promise.any(pool.publish(relays, sELV));
@@ -121,7 +122,7 @@ async function createAndLogInLedger() {
      );
     console.log('it exists on this relay:', event);
     if(event == null) { throw "Error when saving on relay!"; }
-
+    */
     localStorage.setItem("liLedgerNaddr", sELVNaddr);
     localStorage.setItem("liLedger", sELVString);
     document.getElementById("ledgerLoginInfo").innerHTML = "Currently used accounting ledger: " + localStorage.getItem("liLedgerNaddr");
@@ -157,8 +158,8 @@ function setLoginData() {
       }    
       document.getElementById("ledgerRelaysText").innerHTML = relays;
       let accUnits = "";
-      for (v in loggedinLedgerDataContent.acc_unit) {
-        accUnits += loggedinLedgerDataContent.acc_unit[v] + "<br>";
+      for (v in loggedinLedgerDataContent.acc_units) {
+        accUnits += loggedinLedgerDataContent.acc_units[v] + "<br>";
       }
       document.getElementById("ledgerUnitsText").innerHTML = accUnits;
       let accounts = "";
@@ -167,8 +168,8 @@ function setLoginData() {
       }
       document.getElementById("ledgerAccountsText").innerHTML = accounts;
       let accountants = "";
-      for (v in loggedinLedgerDataContent.accountants) {
-        accountants += NostrTools.nip19.npubEncode(loggedinLedgerDataContent.accountants[v]["p"]) + "<br>";
+      for (v in loggedinLedgerDataContent.acc_accountants) {
+        accountants += NostrTools.nip19.npubEncode(loggedinLedgerDataContent.acc_accountants[v]["p"]) + "<br>";
       }
       document.getElementById("ledgerAccountantsText").innerHTML = accountants;
       let feedback = "";
