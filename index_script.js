@@ -127,6 +127,7 @@ async function createAndLogInLedger() {
     localStorage.setItem("liLedger", sELVString);
     document.getElementById("ledgerLoginInfo").innerHTML = "Currently used accounting ledger: " + localStorage.getItem("liLedgerNaddr");
     document.getElementById("ledger_right").innerHTML = localStorage.getItem("liLedgerNaddr");
+    setLoginData();
     let feedback = "Successfully created and selected simple example ledger. View ledger under Menu-point 'Ledger'.";
     document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = feedback;
   } catch (error) {
