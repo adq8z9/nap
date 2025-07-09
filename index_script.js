@@ -75,9 +75,14 @@ function createAndLogInLedger() {
       content: JSON.stringify(sELVData.content),
     }, sk);
     let sELVString = JSON.stringify(simpleExampleLedgerEvent);
+    let sELVNaddr = NostrTools.nip19.naddrEncode(sELV);
     
+    //send event to Relay
+    
+    localStorage.setItem("liLedgerNaddr", sELVNaddr);
     localStorage.setItem("liLedger", sELVString);
-    
+    document.getElementById("ledgerLoginInfo").innerHTML = "Currently used accounting ledger: " + localStorage.getItem("liLedgerNaddr");
+    document.getElementById("ledger_right").innerHTML = localStorage.getItem("liLedgerNaddr");
     let feedback = "Successfully created and selected simple example ledger. View ledger under Menu-point 'Ledger'.";
     document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = feedback;
   } catch (error) {
