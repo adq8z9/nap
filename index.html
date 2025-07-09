@@ -43,18 +43,18 @@
         <h2 class="mainTitle">Log In</h2>
 	<h3 class="mainSubTitle">log in nostr account:</h3>
 	<p class="mainText" id="npubLoginInfo">Currently logged in npub: no nostr account logged in</p>
-        <p class="mainText">Log in with nip19 nsec1...:<br>(Get a throw-away nsec, e.g. here <a href="https://nak.nostr.com/">https://nak.nostr.com/</a>)</p>
+        <p class="mainText">Log in with nip19 nsec1...:<br>(Get a throw-away nsec, e.g. here <a href="https://nak.nostr.com/" style="color:#606770">https://nak.nostr.com/</a>)</p>
         <input type="text" placeholder="log in with nsec1..." class="mainText" id="npubLoginInput">
         <button onclick="logInNpub()">Log In</button>
         <p class="mainText" id="npubLoginInputFeedback"></p>
         <h3 class="mainSubTitle">select accounting ledger:</h3>
-	<p class="mainText" id="loginInfo">Currently used accounting ledger: no accounting ledger selected<br></p>
+	<p class="mainText" id="LedgerLoginInfo">Currently used accounting ledger: no accounting ledger selected<br></p>
         <p class="mainText">Select ledger event with nip19 naddr1...:</p>
-        <input type="text" placeholder="select ledger with naddr1..." class="mainText" id="loginInput">
-        <button onclick="logIn()">Select</button>
-        <p class="mainText" id="loginInputFeedback"></p>
-        <p>or</p><button onclick="cE()">Create simple example ledger and select</button>
-        <p class="mainText" id="loginInputFeedback"></p>
+        <input type="text" placeholder="select ledger with naddr1..." class="mainText" id="ledgerLoginInput">
+        <button onclick="logInLedger()">Select</button>
+        <p class="mainText" id="ledgerLoginInputFeedback"></p>
+        <p>or</p><button onclick="createAndLogInLedger()">Create simple example ledger and select</button>
+        <p class="mainText" id="ledgerCreateLoginInputFeedback"></p>
       </div>
 
       <div class="right">
