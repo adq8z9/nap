@@ -68,13 +68,13 @@ function createAndLogInLedger() {
       }   
     }
     let sk = localStorage.getItem("liSeckey");
-    let simpleExampleLedgerEvent = NostrTools.finalizeEvent({
+    let sELV = NostrTools.finalizeEvent({
       kind: 37701,
       created_at: Math.floor(Date.now() / 1000),
       tags: sELVData.tags,
       content: JSON.stringify(sELVData.content),
     }, sk);
-    let sELVString = JSON.stringify(simpleExampleLedgerEvent);
+    let sELVString = JSON.stringify(sELV);
     let sELVNaddr = NostrTools.nip19.naddrEncode(sELV);
     
     //send event to Relay
