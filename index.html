@@ -19,12 +19,9 @@
     <div style="overflow:auto">
       <div class="menu">
         <a class="menu_point active" onclick="openView(event, 'reports')" id="defaultOpen" href="#reports">Reports</a>
-        <a class="menu_point" onclick="openView(event, 'ledger')" href="#ledger">Ledger</a>
         <a class="menu_point" onclick="openView(event, 'postings')" href="#postings">Ledger Postings</a>
-        <a class="menu_point" onclick="openView(event, 'updateLedger')" href="#updateLedger">Update Ledger</a>
-        <a class="menu_point" onclick="openView(event, 'createPosting')" href="#createPosting">Create Ledger Posting</a>
-	<a class="menu_point" onclick="openView(event, 'createLedger')" href="#createLedger">Create Ledger</a>
-        <a class="menu_point" onclick="openView(event, 'switchLogIn')" href="#switchLogIn">Switch LogIn Data</a>
+        <a class="menu_point" onclick="openView(event, 'ledger')" href="#ledger">Ledger</a>
+        <a class="menu_point" onclick="openView(event, 'logIn')" href="#logIn">Log In</a>
       </div>
       
       <div id="reports" class="main">
@@ -32,50 +29,32 @@
         <p class="mainText">tbd - Sankey Chart</p>
       </div>
 
-      <div id="ledger" class="main">
-        <h2 class="mainTitle">Ledger Overview</h2>
-        <p class="mainText">tbd - List of ledger accounts</p>
-      </div>
-
       <div id="postings" class="main">
-        <h2 class="mainTitle">Ledger Postings Overview</h2>
-        <p class="mainText">tbd - List of ledger postings</p>
+        <h2 class="mainTitle">Ledger Postings</h2>
+        <p class="mainText">tbd - List of ledger postings and create new posting</p>
       </div>
 
-      <div id="updateLedger" class="main">
-        <h2 class="mainTitle">Update Ledger</h2>
-        <p class="mainText">tbd - copy create ledger</p>
+      <div id="ledger" class="main">
+        <h2 class="mainTitle">View Ledger</h2>
+        <p class="mainText">tbd - Overview Ledger characteristics</p>
       </div>
-
-      <div id="createPosting" class="main">
-        <h2 class="mainTitle">Create Ledger Posting</h2>
-        <p class="mainText">tbd - create ledger posting</p>
-      </div>
-
-      <div id="createLedger" class="main">
-        <h2 class="mainTitle">Create Ledger</h2>
-        <p class="mainText">For the required format of the ledger entry see <a href="https://github.com/adq8z9/le_accounting_nud" style="color:#606770">https://github.com/adq8z9/le_accounting_nud</a>.<br>You should just put in the "tags" and "content" data here. The rest is put in automatically.</p>
-	<button onclick="sendNewLedgerEvent()">Send new ledger event</button>
-        <p class="mainText" id="sendNewLedgerFeedback"></p>
-	<textarea id="newledgerInput" placeholder="put in json 'content' field as described under https://github.com/adq8z9/le_accounting_nud here...  
-{ 'tags' : [...],
-'content' : {...} }"></textarea>
-      </div>
-    
-      <div id="switchLogIn" class="main">
-        <h2 class="mainTitle">Switch LogIn Data</h2>
+	    
+      <div id="logIn" class="main">
+        <h2 class="mainTitle">Log In</h2>
 	<h3 class="mainSubTitle">log in nostr account:</h3>
-	<p class="mainText" id="npubLoginInfo">Currently logged in: no nostr account logged in</p>
-        <p class="mainText">Log in with nip19 nsec1...:</p>
+	<p class="mainText" id="npubLoginInfo">Currently logged in npub: no nostr account logged in</p>
+        <p class="mainText">Log in with nip19 nsec1...:<br>(Get a throw-away nsec, e.g. here <a href="https://nak.nostr.com/">https://nak.nostr.com/</a>)</p>
         <input type="text" placeholder="log in with nsec1..." class="mainText" id="npubLoginInput">
-        <button onclick="logInNpub()">Log In</button>
+        <button onclick="npubLogIn()">Log In</button>
         <p class="mainText" id="npubLoginInputFeedback"></p>
-        <h3 class="mainSubTitle">log in accounting ledger:</h3>
-        <p class="mainText" id="accledgerLoginInfo">Currently logged in: no accounting ledger logged in</p>
-        <p class="mainText">Log in with nip19 naddr... of accounting ledger:</p>
-        <input type="text" placeholder="log in with naddr..." class="mainText" id="accledgerLoginInput">
-        <button onclick="logInAccLedger()">Log In</button>
-        <p class="mainText" id="accledgerLoginInputFeedback"></p>
+        <h3 class="mainSubTitle">select accounting ledger:</h3>
+	<p class="mainText" id="loginInfo">Currently used accounting ledger: no accounting ledger selected<br></p>
+        <p class="mainText">Select ledger event with nip19 naddr1...:</p>
+        <input type="text" placeholder="select ledger with naddr1..." class="mainText" id="loginInput">
+        <button onclick="logIn()">Select</button>
+        <p class="mainText" id="loginInputFeedback"></p>
+        <p>or</p><button onclick="cE()">Create simple example ledger and select</button>
+        <p class="mainText" id="loginInputFeedback"></p>
       </div>
 
       <div class="right">
@@ -83,15 +62,17 @@
         <h3 id="header_npub_right">logged in npub</h3>
         <p id="npub_right">not logged in</p>
         <h3 id="header_ledger_right">logged in accounting ledger</h3>
-        <p id="ledger_right">name of ledger<br>kind-value:p-value-shortened:d-value</p>
+        <p id="ledger_right">no accounting ledger selected</p>
         <h3 id="header_relay_right">used relay(s) for acc ledger</h3>
-        <p id="relay_right">wss://damus.io<br>wss://secondr.ar</p>
+        <p id="relay_right">not accounting ledger selected</p>
       </div>
     </div>
 
     <div class="bottomnav">
       <h4 id="bottomNavHeader">Le accounting NUD - fan:</h4>
       <a id= "bottomNavLink" href="https://github.com/adq8z9/le_accounting_nud">https://github.com/adq8z9/le_accounting_nud</a>
+      <h4 id="bottomNavHeader">Nostr protocol:</h4>
+      <a id= "bottomNavLink" href="https://github.com/nostr-protocol/nips">https://github.com/nostr-protocol/nips</a>
     </div>
 
   </body>
