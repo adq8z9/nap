@@ -97,11 +97,11 @@
   margin-top: 7px;
 }
 
-#bottomNavHeader {
+.bottomNavHeader {
   color: #7c3aed;
 }
 
-#bottomNavLink {
+.bottomNavLink {
   color: #606770;
 }
 
