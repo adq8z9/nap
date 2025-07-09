@@ -90,6 +90,7 @@ async function createAndLogInLedger() {
         ]
       }   
     }
+    const d = "SELV";
     const relays = ["wss://relay.damus.io"];
     let sk = localStorage.getItem("liSeckey");
     let sELV = NostrTools.finalizeEvent({
@@ -99,7 +100,7 @@ async function createAndLogInLedger() {
       content: JSON.stringify(sELVData.content),
     }, sk);
     let sELVString = JSON.stringify(sELV);
-    let sELVNaddr = NostrTools.nip19.naddrEncode( { "identifier": sELV.id, "relays": relays, "pubkey": sELV.pubkey, "kind": sELV.kind } );
+    let sELVNaddr = NostrTools.nip19.naddrEncode( { "identifier": d, "relays": relays, "pubkey": sELV.pubkey, "kind": sELV.kind } );
     
     //send event to Relay
     const pool = new NostrTools.SimplePool();
