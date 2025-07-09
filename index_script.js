@@ -44,13 +44,10 @@ async function logInLedger(nAddrLedger) {
   let nAddrLedger = document.getElementById("ledgerLoginInput").value;
   try {
     let nAddrLedgerDec = NostrTools.nip19.decode(nAddrLedger);
-    console.log(nAddrLedgerDec);
     
     //get event from Relay
     const pool = new NostrTools.SimplePool();
     const relays = nAddrLedgerDec.data.relays;
-    console.log(relays);
-    console.log(nAddrLedgerDec.data.identifier);
     const event = await pool.get(
       relays,
       {
