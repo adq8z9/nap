@@ -41,23 +41,35 @@ function logInNpub() {
 }
 
 async function logInLedger(nAddrLedger) {
-  console.log("log in Ledger");
-  
-  //get event from Relay
-  const pool = new NostrTools.SimplePool();
-  const relays = ["wss://relay.damus.io"];
-  const event = await pool.get(
-    relays,
-  {
-    ids: ['49cf8c577c42b8502238875bd7e443314654eca6a2db2735e34581dd4febeb5e'],
-  },
-  );
-  console.log('it exists indeed on this relay:', event);
-  pool.close(relays);
-  
-  let feedback = "Successfully selected accounting ledger. View ledger under Menu-point 'Ledger'.";
-  document.getElementById("ledgerLoginInputFeedback").innerHTML = feedback;
-
+  let nAddrLedger = document.getElementById("ledgerLoginInput").value;
+  try {
+    let nAddrLedgerDec = NostrTools.nip19.decode(nAddrLedger);
+    console.log(nAddrLedgerDec);
+    
+    //get event from Relay
+    const pool = new NostrTools.SimplePool();
+    const relays = nAddrLedgerDec.data.relays;
+    console.log(relays);
+    console.log(nAddrLedgerDec.data.identifier);
+    const event = await pool.get(
+      relays,
+      {
+        ids: [ nAddrLedgerDec.data.identifier ],
+      },
+      );
+    console.log('it exists indeed on this relay:', event);
+    if(event == null) { throw "Event not found on Relay!"; }
+    
+    let eventString = JSON.stringify(event);
+    localStorage.setItem("liLedgerNaddr", nAddrLedger);
+    localStorage.setItem("liLedger", eventString);
+    setLoginData();
+    let feedback = "Successfully selected accounting ledger. View ledger under Menu-point 'Ledger'.";
+    document.getElementById("ledgerLoginInputFeedback").innerHTML = feedback;
+  } catch (error) {
+    let feedback = "Accounting ledger selection failed: " + error;
+    document.getElementById("ledgerLoginInputFeedback").innerHTML = feedback;
+  }
 }
 
 async function createAndLogInLedger() {
@@ -81,6 +93,7 @@ async function createAndLogInLedger() {
         ]
       }   
     }
+    const relays = ["wss://relay.damus.io"];
     let sk = localStorage.getItem("liSeckey");
     let sELV = NostrTools.finalizeEvent({
       kind: 37701,
@@ -89,13 +102,11 @@ async function createAndLogInLedger() {
       content: JSON.stringify(sELVData.content),
     }, sk);
     let sELVString = JSON.stringify(sELV);
-    let sELVNaddr = NostrTools.nip19.naddrEncode(sELV);
+    let sELVNaddr = NostrTools.nip19.naddrEncode( { "identifier": sELV.id, "relays": relays, "pubkey": sELV.pubkey, "kind": sELV.kind } );
     
     //send event to Relay
     const pool = new NostrTools.SimplePool();
-    const relays = ["wss://relay.damus.io"];
-    console.log(sELV);
-    await Promise.any(pool.publish(relays, sELV));
+    const re = await pool.publish(relays, sELV);
     const event = await pool.get(
       relays,
       {
@@ -103,7 +114,6 @@ async function createAndLogInLedger() {
       },
      );
     console.log('it exists on this relay:', event);
-    pool.close(relays);
     if(event == null) { throw "Error when saving on relay!"; }
 
     localStorage.setItem("liLedgerNaddr", sELVNaddr);
