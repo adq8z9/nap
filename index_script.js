@@ -97,4 +97,9 @@ function setLoginData() {
     document.getElementById("npub_right").innerHTML = NostrTools.nip19.npubEncode(loggedinPubkey);
     document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + NostrTools.nip19.npubEncode(loggedinPubkey);
   }
+  let loggedinNaddr = localStorage.getItem("liLedgerNaddr");
+  if(loggedinNaddr !== null){
+    document.getElementById("ledgerLoginInfo").innerHTML = "Currently used accounting ledger: " + loggedinNaddr;
+    document.getElementById("ledger_right").innerHTML = loggedinNaddr;
+  }
 }
