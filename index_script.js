@@ -40,7 +40,7 @@ function logInNpub() {
   }
 }
 
-function logInLedger(nAddrLedger) {
+async function logInLedger(nAddrLedger) {
   console.log("log in Ledger");
   
   //get event from Relay
@@ -60,7 +60,7 @@ function logInLedger(nAddrLedger) {
 
 }
 
-function createAndLogInLedger() {
+async function createAndLogInLedger() {
   try {
     const sELVData = {
       tags: [
