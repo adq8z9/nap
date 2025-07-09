@@ -51,6 +51,7 @@
 
 .mainText {
   color: #1c1e21;
+  word-break: break-all;
 }
 
 .right {
