@@ -102,4 +102,37 @@ function setLoginData() {
     document.getElementById("ledgerLoginInfo").innerHTML = "Currently used accounting ledger: " + loggedinNaddr;
     document.getElementById("ledger_right").innerHTML = loggedinNaddr;
   }
+  let loggedinLedgerDataString = localStorage.getItem("liLedger");
+  if(loggedinLedgerDataString !== null) {
+    try {
+      let loggedinLedgerData = JSON.parse(loggedinLedgerDataString);
+      let loggedinLedgerDataContent = JSON.parse(loggedinLedgerData.content);
+      document.getElementById("ledgerNameText").innerHTML = loggedinLedgerDataContent.name;
+      let relays = "";
+      for (v in loggedinLedgerData.tags) {
+        if(loggedinLedgerData.tags[v][0] == "r") { relays += loggedinLedgerData.tags[v][1] + "<br>"; }
+      }    
+      document.getElementById("ledgerRelaysText").innerHTML = relays;
+      let accUnits = "";
+      for (v in loggedinLedgerDataContent.acc_unit) {
+        accUnits += loggedinLedgerDataContent.acc_unit[v] + "<br>";
+      }
+      document.getElementById("ledgerUnitsText").innerHTML = accUnits;
+      let accounts = "";
+      for (v in loggedinLedgerDataContent.acc_accounts) {
+        accounts += "id: " + loggedinLedgerDataContent.acc_accounts[v]["id"] + " -> " + "name: " + loggedinLedgerDataContent.acc_accounts[v]["name"] + "<br>";
+      }
+      document.getElementById("ledgerAccountsText").innerHTML = accounts;
+      let accountants = "";
+      for (v in loggedinLedgerDataContent.accountants) {
+        accountants += NostrTools.nip19.npubEncode(loggedinLedgerDataContent.accountants[v]["p"]) + "<br>";
+      }
+      document.getElementById("ledgerAccountantsText").innerHTML = accountants;
+      let feedback = "";
+      document.getElementById("ledgerInfoText").innerHTML = feedback;
+    } catch (error) {
+      let feedback = "Error loading selected Ledger-Event: " + error;
+      document.getElementById("ledgerInfoText").innerHTML = feedback;
+    }
+  }
 }
