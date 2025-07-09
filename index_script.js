@@ -25,9 +25,14 @@ function logInNpub() {
   try {
     let skDec = NostrTools.nip19.decode(sk);
     let skHex = NostrTools.utils.bytesToHex(skDec.data);
+    console.log(sk);
+    console.log(skDec);
+    console.log(skHex);
     document.getElementById("npubLoginInput").value = sk;
     let pk = NostrTools.getPublicKey(skDec.data);
     let pkEnc = NostrTools.nip19.npubEncode(pk);
+    console.log(pk);
+    console.log(pkEnc);
     localStorage.setItem("liPubkey", pk);
     localStorage.setItem("liSeckey", skHex);
     document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + NostrTools.nip19.npubEncode(localStorage.getItem("liPubkey"));
