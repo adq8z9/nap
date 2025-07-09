@@ -47,9 +47,43 @@ function logInLedger() {
 }
 
 function createAndLogInLedger() {
-  console.log("create and log in Ledger");
-  let feedback = "Successfully created and selected simple example ledger. View ledger under Menu-point 'Ledger'.";
-  document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = feedback;
+  try {
+    const sELVData = {
+      tags: [
+        ["d", "SELV"],
+        ["r", "wss://relay.damus.io"],
+        ["p", localStorage.getItem("liPubkey")]
+      ], 
+      content: {
+        name: "Simple Example Ledger Event", 
+        acc_unit: ["BTC", "EUR"],
+        acc_accounts: [ 
+          { id: "acc_0001", name: "Wallet" }, 
+          { id: "acc_3001", name: "Inflows" }, 
+          { id: "acc_4001", name: "Outflows" } 
+        ],
+        accountants: [
+          { p: localStorage.getItem("liPubkey") }
+        ]
+      }   
+    }
+    let sk = localStorage.getItem("liSeckey");
+    let simpleExampleLedgerEvent = NostrTools.finalizeEvent({
+      kind: 37701,
+      created_at: Math.floor(Date.now() / 1000),
+      tags: sELVData.tags,
+      content: JSON.stringify(sELVData.content),
+    }, sk);
+    let sELVString = JSON.stringify(simpleExampleLedgerEvent);
+    
+    localStorage.setItem("liLedger", sELVString);
+    
+    let feedback = "Successfully created and selected simple example ledger. View ledger under Menu-point 'Ledger'.";
+    document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = feedback;
+  } catch (error) {
+    let feedback = "Simple example event creation failed: " + error;
+    document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = feedback;
+  }
 }
 
 function setLoginData() {
