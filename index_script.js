@@ -19,7 +19,7 @@ function openView(evt, oView) {
   document.getElementById(oView).style.display = "block";
   evt.currentTarget.className += " active";
 }
-
+/*
 function logInNpub() {
   let sk = document.getElementById("npubLoginInput").value;
   try {
@@ -42,6 +42,30 @@ function logInNpub() {
   } catch (error) {
     let feedback = "Log In failed. Nsec not in correct format. " + error;
     document.getElementById("npubLoginInputFeedback").innerHTML = feedback;
+  }
+}
+*/
+function createAndLogInNpub() {
+  try {
+    let skDec = NostrTools.generateSecretKey();
+    let skHex = NostrTools.utils.bytesToHex(skDec);
+    let sk = NostrTools.nip19.nsecEncode(skDec);
+    console.log(skDec);
+    console.log(sk);
+    console.log(skHex);
+    let pk = NostrTools.getPublicKey(skDec);
+    let pkEnc = NostrTools.nip19.npubEncode(pk);
+    console.log(pk);
+    console.log(pkEnc);
+    localStorage.setItem("liPubkey", pk);
+    localStorage.setItem("liSeckey", skHex);
+    document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + NostrTools.nip19.npubEncode(localStorage.getItem("liPubkey"));
+    document.getElementById("npub_right").innerHTML = NostrTools.nip19.npubEncode(localStorage.getItem("liPubkey"));
+    let feedback = "Successfull key generation and log in.";
+    document.getElementById("npubCreateLoginInputFeedback").innerHTML = feedback;
+  } catch (error) {
+    let feedback = "Key generation failed: " + error;
+    document.getElementById("npubCreateLoginInputFeedback").innerHTML = feedback;
   }
 }
 /*
