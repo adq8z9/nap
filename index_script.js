@@ -51,8 +51,8 @@ function createAndLogInNpub() {
     let skHex = NostrTools.utils.bytesToHex(skDec);
     let sk = NostrTools.nip19.nsecEncode(skDec);
     console.log(skDec);
-    console.log(sk);
     console.log(skHex);
+    console.log(sk);
     let pk = NostrTools.getPublicKey(skDec);
     let pkEnc = NostrTools.nip19.npubEncode(pk);
     console.log(pk);
