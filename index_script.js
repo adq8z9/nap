@@ -125,7 +125,7 @@ async function createAndLogInLedger() {
           { p: localStorage.getItem("liPubkey") }
         ]
       }   
-    }
+    };
     let sk = localStorage.getItem("liSeckey");
     let sELV = NostrTools.finalizeEvent({
       kind: 37701,
@@ -139,6 +139,8 @@ async function createAndLogInLedger() {
     let sELVString = JSON.stringify(sELV);
     let sELVNaddr = NostrTools.nip19.naddrEncode( { "identifier": d, "relays": relays, "pubkey": sELV.pubkey, "kind": sELV.kind } );
     console.log(sELVNaddr);
+    let selvATag = sELV.kind + ":" + sELV.pubkey + ":" + d;
+    console.log(selvATag);
     /*
     //send event to Relay
     const pool = new NostrTools.SimplePool();
@@ -154,10 +156,45 @@ async function createAndLogInLedger() {
     */
     localStorage.setItem("liLedgerNaddr", sELVNaddr);
     localStorage.setItem("liLedger", sELVString);
+    localStorage.setItem("liLedgerATag", selvATag);
     document.getElementById("ledgerLoginInfo").innerHTML = "Currently used accounting ledger: " + localStorage.getItem("liLedgerNaddr");
     document.getElementById("ledger_right").innerHTML = localStorage.getItem("liLedgerNaddr");
     setLoginData();
     let feedback = "Successfully created and selected simple example ledger. View ledger under Menu-point 'Ledger'.";
+    document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = feedback;
+  } catch (error) {
+    let feedback = "Simple example event creation failed: " + error;
+    document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = feedback;
+  }
+  try {
+    const postingData1 = {
+      tags: [
+        ["A", localStorage.getItem("liLedgerATag")],
+        ["I", "accounting:fan:acc_0001"],
+        ["I", "accounting:fan:acc_3001"]
+      ], 
+      content: {
+         debit_account: "acc_0001",
+         credit_account: "acc_3001",
+         acc_amount: [20000, , "BTC"],
+         description: "General income booking"
+      }   
+    };
+    let sk = localStorage.getItem("liSeckey");
+    let postingE1 = NostrTools.finalizeEvent({
+      kind: 7701,
+      created_at: Math.floor(new Date(2025, 6, 15) / 1000),
+      tags: postingData1.tags,
+      content: JSON.stringify(postingData1.content),
+    }, sk);
+    console.log(postingE1);
+    let isGood = NostrTools.verifyEvent(postingE1);
+    console.log(isGood);
+    let postingE1String = JSON.stringify(postingE1);
+    
+    localStorage.setItem("posting1", postingE1String);
+    setLoginData();
+    let feedback = "Successfully created and selected simple example ledger. View ledger under Menu-point 'Ledger'.<br>Example postings succesfully created. View under Menu-point 'Ledger Postings'";
     document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = feedback;
   } catch (error) {
     let feedback = "Simple example event creation failed: " + error;
