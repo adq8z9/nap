@@ -115,7 +115,7 @@ async function createAndLogInLedger() {
       ], 
       content: {
         name: "Simple Example Ledger Event", 
-        acc_units: ["sat", "EUR"],
+        acc_units: ["sat", "eur"],
         acc_accounts: [ 
           { id: "acc_0001", name: "Wallet" }, 
           { id: "acc_3001", name: "Inflows" }, 
@@ -245,7 +245,7 @@ async function createAndLogInLedger() {
     localStorage.setItem("posting2", postingE2String);
     localStorage.setItem("posting3", postingE3String);
     setLoginData();
-    let feedback = "Successfully created and selected simple example ledger. View ledger under Menu-point 'Ledger'.<br>Example postings succesfully created. View under Menu-point 'Ledger Postings'";
+    let feedback = "Successfully created and selected simple example ledger. View ledger under Menu-point 'Ledger'.<br>Example postings succesfully created. View under Menu-point 'Ledger Postings'.";
     document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = feedback;
   } catch (error) {
     let feedback = "Simple example event creation failed: " + error;
