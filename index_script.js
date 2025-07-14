@@ -170,8 +170,9 @@ async function createAndLogInLedger() {
     const postingData1 = {
       tags: [
         ["A", localStorage.getItem("liLedgerATag")],
-        ["I", "accounting:fan:acc_0001"],
-        ["I", "accounting:fan:acc_3001"]
+        ["L", localStorage.getItem("liLedgerATag")],
+        ["l", "account:acc_0001"],
+        ["l", "account:acc_3001"]
       ], 
       content: {
          debit_account: "acc_0001",
@@ -195,8 +196,9 @@ async function createAndLogInLedger() {
     const postingData2 = {
       tags: [
         ["A", localStorage.getItem("liLedgerATag")],
-        ["I", "accounting:fan:acc_4001"],
-        ["I", "accounting:fan:acc_0001"]
+        ["L", localStorage.getItem("liLedgerATag")],
+        ["l", "account:acc_4001"],
+        ["l", "account:acc_0001"]
       ], 
       content: {
          debit_account: "acc_4001",
@@ -219,8 +221,9 @@ async function createAndLogInLedger() {
     const postingData3 = {
       tags: [
         ["A", localStorage.getItem("liLedgerATag")],
-        ["I", "accounting:fan:acc_4001"],
-        ["I", "accounting:fan:acc_0001"]
+        ["L", localStorage.getItem("liLedgerATag")],
+        ["l", "account:acc_4001"],
+        ["l", "account:acc_0001"]
       ], 
       content: {
          debit_account: "acc_4001",
