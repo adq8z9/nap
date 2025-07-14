@@ -188,11 +188,62 @@ async function createAndLogInLedger() {
       content: JSON.stringify(postingData1.content),
     }, sk);
     console.log(postingE1);
-    let isGood = NostrTools.verifyEvent(postingE1);
-    console.log(isGood);
+    let isGood1 = NostrTools.verifyEvent(postingE1);
+    console.log(isGood1);
     let postingE1String = JSON.stringify(postingE1);
+
+    const postingData2 = {
+      tags: [
+        ["A", localStorage.getItem("liLedgerATag")],
+        ["I", "accounting:fan:acc_4001"],
+        ["I", "accounting:fan:acc_0001"]
+      ], 
+      content: {
+         debit_account: "acc_4001",
+         credit_account: "acc_0001",
+         acc_amount: [5000, , "BTC"],
+         description: "Restaurant"
+      }   
+    }
+    let postingE2 = NostrTools.finalizeEvent({
+      kind: 7701,
+      created_at: Math.floor(new Date(2025, 6, 16) / 1000),
+      tags: postingData2.tags,
+      content: JSON.stringify(postingData2.content),
+    }, sk);
+    console.log(postingE2);
+    let isGood2 = NostrTools.verifyEvent(postingE2);
+    console.log(isGood2);
+    let postingE2String = JSON.stringify(postingE2);
+
+    const postingData3 = {
+      tags: [
+        ["A", localStorage.getItem("liLedgerATag")],
+        ["I", "accounting:fan:acc_4001"],
+        ["I", "accounting:fan:acc_0001"]
+      ], 
+      content: {
+         debit_account: "acc_4001",
+         credit_account: "acc_0001",
+         acc_amount: [1000, , "BTC"],
+         description: "Newspaper"
+      }   
+    }
+    let postingE3 = NostrTools.finalizeEvent({
+      kind: 7701,
+      created_at: Math.floor(new Date(2025, 6, 17) / 1000),
+      tags: postingData3.tags,
+      content: JSON.stringify(postingData3.content),
+    }, sk);
+    console.log(postingE3);
+    let isGood3 = NostrTools.verifyEvent(postingE3);
+    console.log(isGood3);
+    let postingE3String = JSON.stringify(postingE3);
+
     
     localStorage.setItem("posting1", postingE1String);
+     localStorage.setItem("posting2", postingE2String);
+    localStorage.setItem("posting3", postingE3String);
     setLoginData();
     let feedback = "Successfully created and selected simple example ledger. View ledger under Menu-point 'Ledger'.<br>Example postings succesfully created. View under Menu-point 'Ledger Postings'";
     document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = feedback;
