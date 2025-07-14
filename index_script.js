@@ -115,7 +115,7 @@ async function createAndLogInLedger() {
       ], 
       content: {
         name: "Simple Example Ledger Event", 
-        acc_units: ["BTC", "EUR"],
+        acc_units: ["sat", "EUR"],
         acc_accounts: [ 
           { id: "acc_0001", name: "Wallet" }, 
           { id: "acc_3001", name: "Inflows" }, 
@@ -176,7 +176,7 @@ async function createAndLogInLedger() {
       content: {
          debit_account: "acc_0001",
          credit_account: "acc_3001",
-         acc_amount: [20000, , "BTC"],
+         acc_amount: [20000, 1, "sat"],
          description: "General income booking"
       }   
     };
@@ -201,7 +201,7 @@ async function createAndLogInLedger() {
       content: {
          debit_account: "acc_4001",
          credit_account: "acc_0001",
-         acc_amount: [5000, , "BTC"],
+         acc_amount: [5000, 1, "sat"],
          description: "Restaurant"
       }   
     }
@@ -225,7 +225,7 @@ async function createAndLogInLedger() {
       content: {
          debit_account: "acc_4001",
          credit_account: "acc_0001",
-         acc_amount: [1000, , "BTC"],
+         acc_amount: [1000, 1, "sat"],
          description: "Newspaper"
       }   
     }
@@ -242,7 +242,7 @@ async function createAndLogInLedger() {
 
     
     localStorage.setItem("posting1", postingE1String);
-     localStorage.setItem("posting2", postingE2String);
+    localStorage.setItem("posting2", postingE2String);
     localStorage.setItem("posting3", postingE3String);
     setLoginData();
     let feedback = "Successfully created and selected simple example ledger. View ledger under Menu-point 'Ledger'.<br>Example postings succesfully created. View under Menu-point 'Ledger Postings'";
@@ -295,6 +295,26 @@ function setLoginData() {
     } catch (error) {
       let feedback = "Error loading selected Ledger-Event: " + error;
       document.getElementById("ledgerInfoText").innerHTML = feedback;
+    }
+  }
+  let postingData1String = localStorage.getItem("posting1");
+  let postingData2String = localStorage.getItem("posting2");
+  let postingData3String = localStorage.getItem("posting3");
+  if(postingData1String !== null && postingData2String !== null && postingData3String !== null) {
+    try {
+      let postingData1 = JSON.parse(postingData1String);
+      let postingData2 = JSON.parse(postingData2String);
+      let postingData3 = JSON.parse(postingData3String);
+      let postingData1Content = JSON.parse(postingData1.content);
+      let postingData2Content = JSON.parse(postingData2.content);
+      let postingData3Content = JSON.parse(postingData3.content);
+      document.getElementById("postingsOverviewText").innerHTML = "Debit: " + postingData1Content.debit_account + ", Credit: " + postingData1Content.credit_account + ", Amount: " + postingData1Content.acc_amount[0] + " " + postingData1Content.acc_amount[2] + ", Description: " + postingData1Content.description + "<br>" + "Debit: " + postingData2Content.debit_account + ", Credit: " + postingData2Content.credit_account + ", Amount: " + postingData2Content.acc_amount[0] + " " + postingData2Content.acc_amount[2] + ", Description: " + postingData2Content.description + "<br>" + "Debit: " + postingData3Content.debit_account + ", Credit: " + postingData3Content.credit_account + ", Amount: " + postingData3Content.acc_amount[0] + " " + postingData3Content.acc_amount[2] + ", Description: " + postingData3Content.description + "<br>";
+  
+      let feedback = "";
+      document.getElementById("postingsInfoText").innerHTML = feedback;
+    } catch (error) {
+      let feedback = "Error loading Posting-Events: " + error;
+      document.getElementById("postingsInfoText").innerHTML = feedback;
     }
   }
 }
