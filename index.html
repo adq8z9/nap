@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="index_style.css">
     <script src="index_script.js"></script>
     <script src="nostr_tools.js"></script>
+    <script src="plotly-3.0.1.min.js" charset="utf-8"></script>
   </head>
 
   <body onload="defaultOpen()">
@@ -28,7 +29,8 @@
       
       <div id="reports" class="main">
         <h2 class="mainTitle">General Overview</h2>
-        <p class="mainText">no accounting ledger selected <br>(select under "Log In")</p>
+        <p class="mainText" id="reportsInfoText">no accounting ledger selected <br>(select under "Log In")</p>
+        <div id="reportGraphic" style="width:100%;height:20%;"></div>
       </div>
 
       <div id="postings" class="main">
