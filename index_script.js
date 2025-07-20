@@ -320,4 +320,51 @@ function setLoginData() {
       document.getElementById("postingsInfoText").innerHTML = feedback;
     }
   }
+
+  if(postingData1String !== null && postingData2String !== null && postingData3String !== null) {
+     try {
+       let postingData1 = JSON.parse(postingData1String);
+       let postingData2 = JSON.parse(postingData2String);
+       let postingData3 = JSON.parse(postingData3String);
+       let postingData1Content = JSON.parse(postingData1.content);
+       let postingData2Content = JSON.parse(postingData2.content);
+       let postingData3Content = JSON.parse(postingData3.content);
+       graphicElement = document.getElementById('reportGraphic');
+       var data = {
+         type: "sankey",
+         orientation: "h",
+         node: {
+           pad: 15,
+           thickness: 30,
+           line: {
+             color: "black",
+             width: 0.5
+           },
+           label: ["General income: 20,000sat", "Wallet", "Restaurant expenses: 5,000sat", "Media expenses: 1,000sat"],
+           color: ["green", "grey", "red", "red"]
+         },
+         link: {
+           source: [0,1,1],
+           target: [1,2,3],
+           value:  [postingData1Content.acc_amount[0],postingData2Content.acc_amount[0],postingData3Content.acc_amount[0]]
+         }
+       };
+       var data2 = [data];
+       var layout = {
+         title: {
+           text: "Balance Month"
+         },
+         font: {
+           size: 10
+         }
+       };
+       Plotly.react(graphicElement, data2, layout);
+
+      let feedback = "";
+      document.getElementById("reportsInfoText").innerHTML = feedback;
+    } catch (error) {
+      let feedback = "Error loading Report-Graphic: " + error;
+      document.getElementById("reportsInfoText").innerHTML = feedback;
+    }
+  }
 }
