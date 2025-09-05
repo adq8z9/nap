@@ -19,7 +19,7 @@ function createAndLogInNpub() {
     localStorage.setItem("liKeypair", keypairString); 
     document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + pk;
     document.getElementById("topNavLoginDataNpub").innerHTML = "npub: " + pk;
-    let feedback = "Successfull key generation and log in.<br>Secret key: " + sk;
+    let feedback = "Successfull key generation and log in.<br>Public key: " + pk + "<br>Secret key: " + sk;
     document.getElementById("npubCreateLoginInputFeedback").innerHTML = feedback;
   } catch (error) {
     let feedback = "Key generation failed: " + error;
