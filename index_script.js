@@ -1,3 +1,3 @@
 function defaultOpen() {
-  console.log("Start");
+  console.log("Start index");
 }
