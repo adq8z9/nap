@@ -1,5 +1,5 @@
 function defaultOpen() {
-  console.log("Start login");
+  console.log("Start loginAccount");
 
   let liKeypairString = localStorage.getItem("liKeypair");
   if(liKeypairString !== null) {
