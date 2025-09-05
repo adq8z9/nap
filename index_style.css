@@ -6,89 +6,36 @@
 .topnav {
   background-color: #0000000d;
   padding: 15px;
-  text-align: left;f
+  text-align: left;
 }
 
 #topNavTitle {
   color: #7c3aed;
 }
 
-.menu {
-  float: left;
-  width: 20%;
+#topNavLogin {
+  color: #7c3aed;
+}
+
+#topNavLoginDataNpub {
+  color: #606770;
+}
+
+#topNavLoginDataLedger {
+  color: #606770;
+}
+
+.content {
+  padding: 20px;
   text-align: left;
 }
 
-.menu a {
-  background-color: #0000000d;
-  color: #606770;
-  padding: 8px;
-  margin-top: 7px;
-  display: block;
-  width: 100%;
-}
-
-.menu a.active {
-  background-color: #0000000d;
+.contentTitle {
   color: #ff8570;
 }
 
-.main {
-  float: left;
-  width: 60%;
-  padding: 0 20px;
-  background-color: #00000002;
-  display:none;
-}
-
-.mainTitle {
-  color: #ff8570;
-}
-
-.mainSubTitle {
+.menuLink {
   color: #1c1e21;
-}
-
-.mainText {
-  color: #1c1e21;
-  word-break: break-all;
-}
-
-.right {
-  background-color: #0000000d;
-  color: #7c3aed;
-  float: left;
-  width: 20%;
-  padding: 15px;
-  margin-top: 7px;
-  text-align: right;
-}
-
-#header_npub_right {
-  color: #606770;
-}
-
-#npub_right {
-  color: #ff8570;
-  word-break: break-all;
-}
-
-#header_ledger_right {
-  color: #606770;
-}
-
-#ledger_right {
-  color: #ff8570;
-  word-break: break-all;
-}
-
-#header_relay_right {
-  color: #606770;
-}
-
-#relay_right {
-  color: #ff8570;
-  word-break: break-all;
 }
 
 .bottomnav {
@@ -104,11 +51,4 @@
 
 .bottomNavLink {
   color: #606770;
-}
-
-@media only screen and (max-width: 700px) {
-  /* For mobile phones: */
-  .menu, .main, .right {
-    width: 100%;
-  }
 }
