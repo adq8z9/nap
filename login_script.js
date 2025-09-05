@@ -5,8 +5,10 @@ function defaultOpen() {
   if(liKeypairString !== null) {
     let liKeypair = JSON.parse(liKeypairString);
     let pk = NostrTools.nip19.npubEncode(liKeypair.pk);
+    let sk = NostrTools.nip19.nsecEncode(NostrTools.utils.hexToBytes(liKeypair.sk));
     document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + pk;
     document.getElementById("topNavLoginDataNpub").innerHTML = "npub: " + pk;
+    document.getElementById("npubLoginInput").value = sk;
   }
 }
 
@@ -27,6 +29,7 @@ function createAndLogInNpub() {
     localStorage.setItem("liKeypair", keypairString); 
     document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + pk;
     document.getElementById("topNavLoginDataNpub").innerHTML = "npub: " + pk;
+    document.getElementById("npubLoginInput").value = sk;
     let feedback = "Successfull key generation and log in.<br>Public key: " + pk + "<br>Secret key: " + sk;
     document.getElementById("npubCreateLoginInputFeedback").innerHTML = feedback;
   } catch (error) {
