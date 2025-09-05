@@ -15,10 +15,11 @@ function createAndLogInNpub() {
     console.log(pkHex);
     console.log(pk);
     let keypair = { pk: pkHex, sk: skHex };
-    localStorage.setItem("liKeypair", keypair); 
+    let keypairString = JSON.stringify(keypair);
+    localStorage.setItem("liKeypair", keypairString); 
     document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + pk;
     document.getElementById("topNavLoginDataNpub").innerHTML = "npub: " + pk;
-    let feedback = "Successfull key generation and log in.\nSecret key: " + sk;
+    let feedback = "Successfull key generation and log in.<br>Secret key: " + sk;
     document.getElementById("npubCreateLoginInputFeedback").innerHTML = feedback;
   } catch (error) {
     let feedback = "Key generation failed: " + error;
