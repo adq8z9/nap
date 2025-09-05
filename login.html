@@ -25,16 +25,18 @@
       <p class="contentText">Log in with nip19 nsec1...:<br>(Get a throw-away nsec, e.g. <a href="https://nak.nostr.com/" style="color:#606770">here</a> or <a href="https://nak.nostr.com/" style="color:#606770">here</a> or in a lot of other nostr clients)</p>
       <input type="text" placeholder="log in with nsec1..." class="contentText" id="npubLoginInput">
       <button onclick="logInNpub()">Log In</button>
-      <p class="mainText" id="npubLoginInputFeedback"></p>
-		
-      <h3 class="mainSubTitle">select accounting ledger:</h3>
+	  <p>or</p> <button onclick="createAndLogInNpub()">Create random example nostr-keypair and log in</button>
+      <p class="mainText" id="npubCreateLoginInputFeedback"></p>
+	  
+      <!-- <p class="mainText" id="npubLoginInputFeedback"></p>
+      <h3 class="contentSubTitle">select accounting ledger:</h3>
       <p class="mainText" id="ledgerLoginInfo">Currently used accounting ledger: no accounting ledger selected<br></p>
-      <p class="mainText" style="display:none;">Select ledger event with nip19 naddr1...:</p>
+      <p class="mainText">Select ledger event with nip19 naddr1...:</p>
       <input type="text" placeholder="select ledger with naddr1..." class="mainText" id="ledgerLoginInput" style="display:none;">
       <button onclick="logInLedger()" style="display:none;">Select</button>
       <p class="mainText" id="ledgerLoginInputFeedback" style="display:none;"></p>
       <p style="display:none;">or</p><button onclick="createAndLogInLedger()">Create simple example ledger and select</button>
-      <p class="mainText" id="ledgerCreateLoginInputFeedback"></p>
+      <p class="mainText" id="ledgerCreateLoginInputFeedback"></p> -->
     </div>
 
     <div class="bottomnav">
