@@ -1,1 +1,43 @@
-tbd
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Nap - Nostr accounting program</title>
+    <link rel="icon" type="image/png" href="nap.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index_style.css">
+    <script src="index_script.js"></script>
+  </head>
+
+  <body onload="defaultOpen()">
+	  
+    <div class="topnav">
+      <h1 id="topNavTitle">Nostr accounting program (nap)</h1>
+      <img src="nap.png" alt="" style="width:65px;height:48px;">
+      <p style="color:red">Note: This tool is just a simple test-program. Don't use it for real application and use example data just for throw-away purposes.</p>
+      <h4 id="topNavLogin">Currently logged in:</h4>
+      <p id="topNavLoginDataNpub">npub: not logged in</p>
+      <p id="topNavLoginDataLedger">ledger: not selected</p>
+    </div>
+    
+    <div class="content">
+      <h3 class="contentTitle">Menu</h3>
+      <a class="menuLink" href="./">Reports</a><br><br>
+      <a class="menuLink" href="./">Postings</a><br><br>
+      <a class="menuLink" href="./">Ledger</a><br><br>
+      <a class="menuLink" href="./login">Log In</a><br><br>
+    </div>
+
+    <div class="bottomnav">
+      <h4 class="bottomNavHeader">Le accounting nip:</h4>
+      <a class="bottomNavLink" href="https://github.com/adq8z9/le_accounting_nud">https://github.com/adq8z9/le_accounting_nud</a>
+      <h4 class="bottomNavHeader">Nostr accounting program (nap):</h4>
+      <a class="bottomNavLink" href="https://github.com/adq8z9/nap">https://github.com/adq8z9/nap<br><br></a>
+      <h4 class="bottomNavHeader">Nostr protocol:</h4>
+      <a class="bottomNavLink" href="https://github.com/nostr-protocol/nips">https://github.com/nostr-protocol/nips</a>
+      <h4 class="bottomNavHeader">Nostr tools:</h4>
+      <a class="bottomNavLink" href="https://github.com/nbd-wtf/nostr-tools">https://github.com/nbd-wtf/nostr-tools</a>
+    </div>
+	  
+  </body>
+</html>
