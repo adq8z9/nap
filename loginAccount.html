@@ -1,1 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Nap - Nostr accounting program</title>
+    <link rel="icon" type="image/png" href="nap.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index_style.css">
+    <script src="loginAccount_script.js"></script>
+	<script src="nostr_tools.js"></script>
+  </head>
 
+  <body onload="defaultOpen()">
+	  
+    <div class="topnav">
+      <h4 id="topNavLogin">Currently logged in:</h4>
+      <p id="topNavLoginDataNpub">npub: not logged in</p>
+      <p id="topNavLoginDataLedger">ledger: not selected</p>
+    </div>
+    
+    <div class="content">
+	  <a class="menuLink" href="login.html">&lt;--Back</a><br><br>
+      <h3 class="contentTitle">Account Log In</h3>
+	  <h4 class="contentSubTitle">log in nostr account:</h4>
+	  <p class="contentText" id="npubLoginInfo">Currently logged in: no nostr account logged in</p>
+      <p class="contentText">Log in with nostr secret key in format nsec1...:</p>
+      <input type="text" placeholder="log in with nsec1..." class="contentText" id="npubLoginInput">
+      <button onclick="logInNpub()">Log In</button>
+	  <p class="contentText" id="npubLoginInputFeedback"></p>
+	  <p>or</p> <button onclick="createAndLogInNpub()">Create example nostr secret key nsec and log in</button>
+      <p class="contentText" id="npubCreateLoginInputFeedback"></p>
+	  <p style="color:red">Note: If you want to reuse login. Save the nsec somewhere e.g. in a password manager.<br><br>Don't use the here created nsec for other use cases besides experimenting with the program.<br>Don't use a nsec you use for other applications for experimenting with this program.</p>
+    </div>
+
+    <div class="bottomnav">
+      <img src="nap.png" alt="" style="width:65px;height:48px;">
+      <h4 class="bottomNavHeader">Nostr nips:</h4>
+      <a class="bottomNavLink" href="https://github.com/nostr-protocol/nips">https://github.com/nostr-protocol/nips</a>
+    </div>
+	  
+  </body>
+</html>
