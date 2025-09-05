@@ -25,6 +25,10 @@
   color: #606770;
 }
 
+.menuLink {
+  color: #1c1e21;
+}
+
 .content {
   padding: 20px;
   text-align: left;
@@ -34,8 +38,13 @@
   color: #ff8570;
 }
 
-.menuLink {
+.contentSubTitle {
   color: #1c1e21;
+}
+
+.contentText {
+  color: #1c1e21;
+  word-break: break-all;
 }
 
 .bottomnav {
