@@ -12,6 +12,32 @@ function defaultOpen() {
   }
 }
 
+function logInNpub() {
+  let sk = document.getElementById("npubLoginInput").value;
+  try {
+    let skDec = NostrTools.nip19.decode(sk);
+    let skHex = NostrTools.utils.bytesToHex(skDec.data);
+    console.log(sk);
+    console.log(skDec);
+    console.log(skHex);
+    let pkHex = NostrTools.getPublicKey(skDec.data);
+    let pk = NostrTools.nip19.npubEncode(pkHex);
+    console.log(pkHex);
+    console.log(pk);
+    let keypair = { pk: pkHex, sk: skHex };
+    let keypairString = JSON.stringify(keypair);
+    localStorage.setItem("liKeypair", keypairString); 
+    document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + pk;
+    document.getElementById("topNavLoginDataNpub").innerHTML = "npub: " + pk;
+    document.getElementById("npubLoginInput").value = sk;
+    let feedback = "Successfull log in.";
+    document.getElementById("npubLoginInputFeedback").innerHTML = feedback;
+  } catch (error) {
+    let feedback = "Log In failed. Nsec not in correct format. " + error;
+    document.getElementById("npubLoginInputFeedback").innerHTML = feedback;
+  }
+}
+
 function createAndLogInNpub() {
   try {
     let skDec = NostrTools.generateSecretKey();
