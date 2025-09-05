@@ -20,15 +20,13 @@
     <div class="content">
 	  <a class="menuLink" href="../">&lt;--Back</a><br><br>
       <h3 class="contentTitle">Log In</h3>
-	  <h2 class="mainTitle">Log In</h2>
-	  <h3 class="mainSubTitle">log in nostr account:</h3>
-	  <p class="mainText" id="npubLoginInfo">Currently logged in npub: no nostr account logged in</p>
-      <p class="mainText" style="display:none;">Log in with nip19 nsec1...:<br>(Get a throw-away nsec, e.g. here <a href="https://nak.nostr.com/" style="color:#606770">https://nak.nostr.com/</a>)</p>
-      <input type="text" placeholder="log in with nsec1..." class="mainText" id="npubLoginInput" style="display:none;">
-      <button onclick="logInNpub()" style="display:none;">Log In</button>
-      <p class="mainText" id="npubLoginInputFeedback" style="display:none;"></p>
-      <p style="display:none;">or</p><button onclick="createAndLogInNpub()">Create random example nostr-keypair and log in</button>
-      <p class="mainText" id="npubCreateLoginInputFeedback"></p>
+	  <h4 class="contentSubTitle">log in nostr account:</h4>
+	  <p class="contentText" id="npubLoginInfo">Currently logged in npub: no nostr account logged in</p>
+      <p class="contentText">Log in with nip19 nsec1...:<br>(Get a throw-away nsec, e.g. <a href="https://nak.nostr.com/" style="color:#606770">here</a> or <a href="https://nak.nostr.com/" style="color:#606770">here</a> or in a lot of other nostr clients)</p>
+      <input type="text" placeholder="log in with nsec1..." class="contentText" id="npubLoginInput">
+      <button onclick="logInNpub()">Log In</button>
+      <p class="mainText" id="npubLoginInputFeedback"></p>
+		
       <h3 class="mainSubTitle">select accounting ledger:</h3>
       <p class="mainText" id="ledgerLoginInfo">Currently used accounting ledger: no accounting ledger selected<br></p>
       <p class="mainText" style="display:none;">Select ledger event with nip19 naddr1...:</p>
