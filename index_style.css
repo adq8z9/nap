@@ -19,10 +19,12 @@
 
 #topNavLoginDataNpub {
   color: #606770;
+  word-break: break-all;
 }
 
 #topNavLoginDataLedger {
   color: #606770;
+  word-break: break-all;
 }
 
 .menuLink {
