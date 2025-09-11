@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Nap - Nostr accounting program</title>
+    <link rel="icon" type="image/png" href="nap.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index_style.css">
+    <script src="loginLedger_script.js"></script>
+	<script src="nostr_tools.js"></script>
+  </head>
+
+  <body onload="defaultOpen()">
+	  
+    <div class="topnav">
+      <h4 id="topNavLogin">Currently logged in:</h4>
+      <p id="topNavLoginDataNpub">npub: not logged in</p>
+      <p id="topNavLoginDataLedger">ledger: not selected</p>
+    </div>
+    
+    <div class="content">
+	    <a class="menuLink" href="login.html">&lt;--Back</a><br><br>
+      <h3 class="contentTitle">Ledger Log In</h3>
+	    <h4 class="contentSubTitle">select accounting ledger:</h4>
+	    <p class="contentText" id="ledgerLoginInfo">Currently used accounting ledger: no accounting ledger selected</p>
+      <p class="contentText">Select ledger event with nostr adressable event in format naddr1...:</p>
+      <input type="text" placeholder="select ledger with naddr1..." class="contentText" id="ledgerLoginInput">
+      <button onclick="logInLedger()">Select</button>
+	    <p class="contentText" id="ledgerLoginInputFeedback"></p>
+	    <p>or</p> <button onclick="createAndLogInLedger()">Create example nostr ledger naddr and select</button>
+      <p class="contentText" id="ledgerCreateLoginInputFeedback"></p>
+	    <p style="color:red">Note: If you want to reuse ledger. Save the naddr somewhere e.g. in a password manager.<br><br>Don't use the here selected naddr ledger with real data, just for experimenting.</p>
+    </div>
+
+    <div class="bottomnav">
+      <img src="nap.png" alt="" style="width:65px;height:48px;">
+      <h4 class="bottomNavHeader">Nostr nips:</h4>
+      <a class="bottomNavLink" href="https://github.com/nostr-protocol/nips">https://github.com/nostr-protocol/nips</a>
+      <h4 class="bottomNavHeader">Le accounting nip:</h4>
+      <a class="bottomNavLink" href="https://github.com/adq8z9/le_accounting_nud">https://github.com/adq8z9/le_accounting_nud</a>
+    </div>
+	  
+  </body>
+</html>
