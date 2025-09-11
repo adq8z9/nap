@@ -10,6 +10,13 @@ function defaultOpen() {
     document.getElementById("topNavLoginDataNpub").innerHTML = "npub: " + pk;
     document.getElementById("npubLoginInput").value = sk;
   }
+
+  let liLedgerString = localStorage.getItem("liLedger");
+  if(liLedgerString !== null) {
+    let liLedger = JSON.parse(liLedgerString);
+    let naddr = liLedger.naddr;
+    document.getElementById("topNavLoginDataLedger").innerHTML = "ledger: " + naddr;
+  }
 }
 
 function logInNpub() {
