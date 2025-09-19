@@ -53,9 +53,10 @@ async function createAndLogInLedger() {
       let liKeypair = JSON.parse(liKeypairString);
       //Create example ledger
       const d = "spal";
-      const relays = ["ws://umbrel.local:4848"];
+      const relays = ["wss://personal.relays.land"];
       const spalData = {
         tags: [
+          ["-"],
           ["d", d],
           ["L", "leaccountingnip"],
           ["l", "ledger", "leaccountingnip"],
@@ -84,7 +85,10 @@ async function createAndLogInLedger() {
       console.log(spal);
       //send example event to default Relay
       const pool = new NostrTools.SimplePool();
-      await Promise.any(pool.publish(relays, spal));
+      function authF(eventA) {
+        return NostrTools.finalizeEvent(eventA, liKeypair.sk);
+      }
+      await Promise.any(pool.publish(relays, spal, { onauth : authF }));
       const event = await pool.get(
         relays,
         {
