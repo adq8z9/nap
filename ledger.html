@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Nap - Nostr accounting program</title>
+    <link rel="icon" type="image/png" href="nap.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index_style.css">
+    <script src="ledger_script.js"></script>
+	<script src="nostr_tools.js"></script>
+  </head>
+
+  <body onload="defaultOpen()">
+	  
+    <div class="topnav">
+      <h4 id="topNavLogin">Currently logged in:</h4>
+      <p id="topNavLoginDataNpub">accountant: not logged in</p>
+      <p id="topNavLoginDataLedger">ledger: not selected</p>
+    </div>
+    
+    <div class="content">
+	  <a class="menuLink" href="index.html">&lt;--Back</a><br><br>
+      <h3 class="contentTitle">Nostr Log In</h3>
+	  <a class="menuLink" href="./ledgerOverview.html">Overview Ledger</a><br><br>
+	  <a class="menuLink" href="./">Edit Ledger</a><br><br>
+    </div>
+
+    <div class="bottomnav">
+      <img src="nap.png" alt="" style="width:65px;height:48px;">
+    </div>
+	  
+  </body>
+</html>
