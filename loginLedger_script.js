@@ -18,7 +18,7 @@ function defaultOpen() {
   }
 }
 
-function logInLedger() {
+async function logInLedger() {
   let liKeypairString = localStorage.getItem("liKeypair");
   if(liKeypairString !== null) {
     try {
