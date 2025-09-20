@@ -19,31 +19,48 @@ function defaultOpen() {
 }
 
 function logInLedger() {
-  let feedback = "Not yet implemented.";
-  document.getElementById("ledgerLoginInputFeedback").innerHTML = feedback;
-  /*let sk = document.getElementById("npubLoginInput").value;
-  try {
-    let skDec = NostrTools.nip19.decode(sk);
-    let skHex = NostrTools.utils.bytesToHex(skDec.data);
-    console.log(sk);
-    console.log(skDec);
-    console.log(skHex);
-    let pkHex = NostrTools.getPublicKey(skDec.data);
-    let pk = NostrTools.nip19.npubEncode(pkHex);
-    console.log(pkHex);
-    console.log(pk);
-    let keypair = { pk: pkHex, sk: skHex };
-    let keypairString = JSON.stringify(keypair);
-    localStorage.setItem("liKeypair", keypairString); 
-    document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + pk;
-    document.getElementById("topNavLoginDataNpub").innerHTML = "npub: " + pk;
-    document.getElementById("npubLoginInput").value = sk;
-    let feedback = "Successfull log in.";
-    document.getElementById("npubLoginInputFeedback").innerHTML = feedback;
-  } catch (error) {
-    let feedback = "Log In failed. Nsec not in correct format. " + error;
-    document.getElementById("npubLoginInputFeedback").innerHTML = feedback;
-  }*/
+  let liKeypairString = localStorage.getItem("liKeypair");
+  if(liKeypairString !== null) {
+    try {
+      let liKeypair = JSON.parse(liKeypairString);
+      let nAddrLedger = document.getElementById("ledgerLoginInput").value;
+      let nAddrLedgerDec = NostrTools.nip19.decode(nAddrLedger);
+      console.log(nAddrLedgerDec);
+      //get event from Relay
+      const pool = new NostrTools.SimplePool();
+      const relays = nAddrLedgerDec.data.relays;
+      function authF(eventA) {
+        return NostrTools.finalizeEvent(eventA, liKeypair.sk);
+      }
+      const event = await pool.get(
+        relays,
+        {
+          kind: 37701,
+          tags: [ ["d", nAddrLedgerDec.data.identifier] ],
+          pubkey: nAddrLedgerDec.data.pubkey
+        },
+        { onauth : authF }
+      );
+      console.log('it exists indeed on this relay: ', event);
+      if (event == null) { throw "Event not found on relay."; }
+      //save
+      console.log(nAddrLedger);
+      let liLedger = { naddr: nAddrLedger, event: event }
+      let liLedgerString = JSON.stringify(liLedger);
+      localStorage.setItem("liLedger", liLedgerString);
+      document.getElementById("ledgerLoginInfo").innerHTML = "Currently used accounting ledger: " + nAddrLedger;
+      document.getElementById("topNavLoginDataLedger").innerHTML = "ledger: " + nAddrLedger;
+      document.getElementById("ledgerLoginInput").value = nAddrLedger;
+      let feedback = "Successfully selected ledger naddr. View Ledger under 'Accounting Ledger' in the main menu.<br>Naddr: " + nAddrLedger;
+      document.getElementById("ledgerLoginInputFeedback").innerHTML = feedback;
+    } catch (error) {
+      let feedback = "Accounting ledger selection failed: " + error;
+      document.getElementById("ledgerLoginInputFeedback").innerHTML = feedback;
+    }
+  } else {
+    let feedback = "First log in a npub, before selecting a ledger event!";
+    document.getElementById("ledgerLoginInputFeedback").innerHTML = feedback;
+  }
 }
 
 async function createAndLogInLedger() {
