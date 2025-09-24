@@ -13,5 +13,7 @@ function defaultOpen() {
     let liLedger = JSON.parse(liLedgerString);
     let naddr = liLedger.naddr;
     document.getElementById("topNavLoginDataLedger").innerHTML = "ledger: " + naddr;
+    let ledgerEvent = liLedger.event;
+    document.getElementById("topNavLoginDataLedger").innerHTML = "Ledger: <br><br>" + ledgerEvent;
   }
 }
