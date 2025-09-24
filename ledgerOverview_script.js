@@ -14,6 +14,6 @@ function defaultOpen() {
     let naddr = liLedger.naddr;
     document.getElementById("topNavLoginDataLedger").innerHTML = "ledger: " + naddr;
     let ledgerEvent = liLedger.event;
-    document.getElementById("ledgerView").innerHTML = "Ledger: <br><br>" + ledgerEvent;
+    document.getElementById("ledgerView").innerHTML = "Ledger: <br><br>" + JSON.stringify(ledgerEvent);
   }
 }
