@@ -1,19 +1,11 @@
 function defaultOpen() {
   console.log("Start loginLedger");
-
-  let liKeypairString = localStorage.getItem("liKeypair");
-  if(liKeypairString !== null) {
-    let liKeypair = JSON.parse(liKeypairString);
-    let pk = NostrTools.nip19.npubEncode(liKeypair.pk);
-    document.getElementById("topNavLoginDataNpub").innerHTML = "npub: " + pk;
-  }
-  
+  setLoginData();
   let liLedgerString = localStorage.getItem("liLedger");
   if(liLedgerString !== null) {
     let liLedger = JSON.parse(liLedgerString);
     let naddr = liLedger.naddr;
     document.getElementById("ledgerLoginInfo").innerHTML = "Currently used accounting ledger: " + naddr;
-    document.getElementById("topNavLoginDataLedger").innerHTML = "ledger: " + naddr;
     document.getElementById("ledgerLoginInput").value = naddr;
   }
 }
