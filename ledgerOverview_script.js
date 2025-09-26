@@ -1,19 +1,22 @@
 function defaultOpen() {
   console.log("Start login");
-
-  let liKeypairString = localStorage.getItem("liKeypair");
-  if(liKeypairString !== null) {
-    let liKeypair = JSON.parse(liKeypairString);
-    let pk = NostrTools.nip19.npubEncode(liKeypair.pk);
-    document.getElementById("topNavLoginDataNpub").innerHTML = "npub: " + pk;
-  }
-
+  setLoginData();
   let liLedgerString = localStorage.getItem("liLedger");
   if(liLedgerString !== null) {
     let liLedger = JSON.parse(liLedgerString);
-    let naddr = liLedger.naddr;
-    document.getElementById("topNavLoginDataLedger").innerHTML = "ledger: " + naddr;
     let ledgerEvent = liLedger.event;
     document.getElementById("ledgerView").innerHTML = "Ledger: <br><br>" + JSON.stringify(ledgerEvent);
+  }
+  setLedgerViewTable();
+}
+
+function setLedgerViewTable() {
+  let liLedgerString = localStorage.getItem("liLedger");
+  if(liLedgerString !== null) {
+    let liLedger = JSON.parse(liLedgerString);
+    let ledgerEvent = liLedger.event;
+    document.getElementById("ledgerViewTable").innerHTML = 
+      "<tr><th>Account Category</th><th>Account ID</th><th>Account Name</th>" +
+      "<tr><td>Income</td><td>acc_0001</td><td>Renumeration</td>";
   }
 }
