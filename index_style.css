@@ -56,12 +56,12 @@
   color: #1c1e21;
 }
 
-.contentTable.th {
+.contentTable > th {
   border: 1px solid #1c1e21;
   padding: 10px;
 }
 
-.contentTable.td {
+.contentTable > td {
   border: 1px solid #1c1e21;
   padding: 10px;
 }
