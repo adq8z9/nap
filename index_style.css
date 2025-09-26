@@ -49,6 +49,14 @@
   word-break: break-all;
 }
 
+.contentTable {
+  border: 1px solid #1c1e21;
+  border-collapse: collapse;
+  padding: 10px;
+  text-align: left;
+  color: #1c1e21;
+}
+
 .bottomnav {
   background-color: #0000000d;
   text-align: left;
