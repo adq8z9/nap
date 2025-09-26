@@ -52,9 +52,18 @@
 .contentTable {
   border: 1px solid #1c1e21;
   border-collapse: collapse;
-  padding: 10px;
   text-align: left;
   color: #1c1e21;
+}
+
+.contentTable.th {
+  border: 1px solid #1c1e21;
+  padding: 10px;
+}
+
+.contentTable.td {
+  border: 1px solid #1c1e21;
+  padding: 10px;
 }
 
 .bottomnav {
