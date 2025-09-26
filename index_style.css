@@ -54,16 +54,14 @@
   border-collapse: collapse;
   text-align: left;
   color: #1c1e21;
-}
-
-.contentTable > th {
-  border: 1px solid #1c1e21;
-  padding: 10px;
-}
-
-.contentTable > td {
-  border: 1px solid #1c1e21;
-  padding: 10px;
+  & > th {
+    border: 1px solid #1c1e21;
+    padding: 10px;
+  }
+  & > td {
+    border: 1px solid #1c1e21;
+    padding: 10px;
+  }
 }
 
 .bottomnav {
