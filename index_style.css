@@ -54,11 +54,11 @@
   border-collapse: collapse;
   text-align: left;
   color: #1c1e21;
-  & > th {
+  th {
     border: 1px solid #1c1e21;
     padding: 10px;
   }
-  & > td {
+  td {
     border: 1px solid #1c1e21;
     padding: 10px;
   }
