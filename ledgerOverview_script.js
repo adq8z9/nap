@@ -13,6 +13,8 @@ function setLedgerViewTable() {
     document.getElementById("ledgerViewTable").innerHTML = 
       "<tr><th>Account Category</th><th>Account ID</th><th>Account Name</th></tr>" +
       "<tr><td>Income</td><td>acc_0001</td><td>Renumeration</td></tr>" +
-      "<tr><td>Expense</td><td>acc_1001</td><td>Payments</td></tr>";
+      "<tr><td>Income</td><td>acc_0002</td><td>Incoming Zaps</td></tr>" +
+      "<tr><td>Expense</td><td>acc_1001</td><td>Payments</td></tr>" +
+      "<tr><td>Expense</td><td>acc_1002</td><td>Outgoing Zaps</td></tr>";
   }
 }
