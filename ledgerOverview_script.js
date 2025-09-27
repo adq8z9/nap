@@ -12,6 +12,7 @@ function setLedgerViewTable() {
     document.getElementById("ledgerView").innerHTML = "Ledger Meta-Data";
     document.getElementById("ledgerViewTable").innerHTML = 
       "<tr><th>Account Category</th><th>Account ID</th><th>Account Name</th></tr>" +
-      "<tr><td>Income</td><td>acc_0001</td><td>Renumeration</td></tr>";
+      "<tr><td>Income</td><td>acc_0001</td><td>Renumeration</td></tr>" +
+      "<tr><td>Expense</td><td>acc_1001</td><td>Payments</td></tr>";
   }
 }
