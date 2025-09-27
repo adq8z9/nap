@@ -77,7 +77,7 @@ async function createAndLogInLedger() {
           acc_units: ["sat"],
           acc_account_categories: [
             { id: "acc_c_0", name: "Income" },
-            { id: "acc_c_1", name: "Expenses" }
+            { id: "acc_c_1", name: "Expense" }
           ], 
           acc_accounts: [ 
             { id: "acc_0001", name: "Remuneration", parent_id: "acc_c_0" },
