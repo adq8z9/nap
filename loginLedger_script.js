@@ -89,7 +89,7 @@ async function createAndLogInLedger() {
             { id: "acc_1002", name: "Outgoing Zaps", parent_id: "acc_c_1" },
             { id: "acc_1003", name: "Outgoing Donations", parent_id: "acc_c_1" },
             { id: "acc_1004", name: "Purchases", parent_id: "acc_c_1" },
-            { id: "acc_1005", name: "Own Withdrawal from Wallet", parent_id: "acc_c_1" },
+            { id: "acc_1005", name: "Own Withdrawal from Wallet", parent_id: "acc_c_1" }
           ],
           acc_accountants: [
             { p: liKeypair.pk }
