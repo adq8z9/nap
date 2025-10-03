@@ -9,12 +9,35 @@ function setLedgerViewTable() {
   if(liLedgerString !== null) {
     let liLedger = JSON.parse(liLedgerString);
     let ledgerEvent = liLedger.event;
-    document.getElementById("ledgerView").innerHTML = "Ledger Meta-Data";
-    document.getElementById("ledgerViewTable").innerHTML = 
-      "<tr><th>Account Category</th><th>Account ID</th><th>Account Name</th></tr>" +
-      "<tr><td>Income</td><td>acc_0001</td><td>Renumeration</td></tr>" +
-      "<tr><td>Income</td><td>acc_0002</td><td>Incoming Zaps</td></tr>" +
-      "<tr><td>Expense</td><td>acc_1001</td><td>Payments</td></tr>" +
-      "<tr><td>Expense</td><td>acc_1002</td><td>Outgoing Zaps</td></tr>";
+    let ledgerEventContent = JSON.parse(ledgerEvent.content);
+    console.log(ledgerEventContent);
+    let evLedgerAccounts = ledgerEventContent.acc_accounts;
+    let evLedgerAccountCategories = ledgerEventContent.acc_account_categories;
+    let evLedgerAccountants = ledgerEventContent.acc_accountants;
+    console.log(evLedgerAccounts);
+    console.log(evLedgerAccountCategories);
+    console.log(evLedgerAccountants);
+    let ledgerViewTableString = "<tr><th>Account ID</th><th>Account Name</th><th>Account Category</th></tr>";
+    for (let i = 0; i < evLedgerAccounts.length; i++) {
+      ledgerViewTableString += "<tr><td>" + evLedgerAccounts[i].id + "</td><td>" + evLedgerAccounts[i].name + "</td><td>";
+      let hasCategory = false;
+      for (let j = 0; j < evLedgerAccountCategories.length; j++) {
+        console.l
+        if (evLedgerAccounts[i].parent_id == evLedgerAccountCategories[j].id) {
+          ledgerViewTableString += evLedgerAccountCategories[j].name + "</td></tr>";
+          hasCategory = true;
+        }
+      }
+      if (!hasCategory) {
+        ledgerViewTableString += " " + "</td></tr>";
+      }
+    }
+    console.log(ledgerViewTableString);
+    let ledgerMetadataString = "Name: " + ledgerEventContent.name + "<br><br>Units: " + ledgerEventContent.acc_units + "<br><br>Accountants: ";
+    for (let i = 0; i < evLedgerAccountants.length; i++) {
+      ledgerMetadataString += NostrTools.nip19.npubEncode(ledgerEventContent.acc_accountants[i].p) + " ";
+    }
+    document.getElementById("ledgerView").innerHTML = ledgerMetadataString;
+    document.getElementById("ledgerViewTable").innerHTML = ledgerViewTableString;
   }
 }
