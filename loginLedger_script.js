@@ -40,6 +40,7 @@ async function logInLedger() {
       let liLedger = { naddr: nAddrLedger, event: event }
       let liLedgerString = JSON.stringify(liLedger);
       localStorage.setItem("liLedger", liLedgerString);
+      saveLedgerDataIndexDB(event);
       document.getElementById("ledgerLoginInfo").innerHTML = "Currently used accounting ledger: " + nAddrLedger;
       document.getElementById("topNavLoginDataLedger").innerHTML = "ledger: " + nAddrLedger;
       document.getElementById("ledgerLoginInput").value = nAddrLedger;
@@ -123,6 +124,7 @@ async function createAndLogInLedger() {
       let liLedger = { naddr: spalNaddr, event: spal }
       let liLedgerString = JSON.stringify(liLedger);
       localStorage.setItem("liLedger", liLedgerString);
+      saveLedgerDataIndexDB(spal);
       document.getElementById("ledgerLoginInfo").innerHTML = "Currently used accounting ledger: " + spalNaddr;
       document.getElementById("topNavLoginDataLedger").innerHTML = "ledger: " + spalNaddr;
       document.getElementById("ledgerLoginInput").value = spalNaddr;
@@ -136,4 +138,91 @@ async function createAndLogInLedger() {
     let feedback = "First log in a npub, before creating a ledger event!";
     document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = feedback;
   }
+}
+
+function saveLedgerDataIndexDB(ledgerEvent) {
+  var db;
+  var request = window.indexedDB.open("Ledger", 3);
+  request.onerror = ReqEvent => {
+    console.error("IndexDB open error: " + ReqEvent.target.errorCode);
+  };
+  request.onsuccess = ReqEvent => {
+    db = ReqEvent.target.result;
+    console.log("IndexDB open success");
+    let txn = db.transaction("ledger_accounts", "readwrite");
+    let ledger_accounts_ost = txn.objectStore("ledger_accounts");
+    let evContent = JSON.parse(ledgerEvent.content);
+    console.log(evContent);
+    let evLedgerAccounts = evContent.acc_accounts;
+    let evLedgerAccountCategories = evContent.acc_account_categories;
+    console.log(evLedgerAccounts);
+    console.log(evLedgerAccountCategories);
+    for (let i = 0; i < evLedgerAccounts.length; i++) {
+      let acc1 = {
+        id: evLedgerAccounts[i].id,
+        name: evLedgerAccounts[i].name,
+        parent_id: evLedgerAccounts[i].parent_id
+      };
+      let requestT = ledger_accounts_ost.put(acc1);
+      requestT.onsuccess = function() { 
+        console.log("Ledger account saved", requestT.result);
+      };
+      requestT.onerror = function() {
+        console.log("Database Transaction-Error: ", requestT.error);
+      };  
+    }
+    txn.oncomplete = function() {
+      console.log("Transaction is complete.");
+    };
+    let txn2 = db.transaction("ledger_account_categories", "readwrite");
+    let ledger_accounts_ost2 = txn2.objectStore("ledger_account_categories");
+    for (let i = 0; i < evLedgerAccountCategories.length; i++) {
+      let acc2 = {
+        id: evLedgerAccountCategories[i].id,
+        name: evLedgerAccountCategories[i].name,
+        parent_id: ""
+      };
+      let requestT2 = ledger_accounts_ost2.put(acc2);
+      requestT2.onsuccess = function() { 
+        console.log("Ledger account category saved", requestT2.result);
+      };
+      requestT2.onerror = function() {
+        console.log("Database Transaction-Error: ", requestT2.error);
+      };  
+    }
+    txn2.oncomplete = function() {
+      console.log("Transaction is complete.");
+    };
+    let txn3 = db.transaction("ledger_metadata", "readwrite");
+    let ledger_accounts_ost3 = txn3.objectStore("ledger_metadata");
+      let ledMeta = {
+        id: "metadata",
+        name: evContent.name,
+        units: evContent.acc_units,
+        accountants: evContent.acc_accountants
+      };
+      let requestT3 = ledger_accounts_ost3.put(ledMeta);
+      requestT3.onsuccess = function() { 
+        console.log("Ledger account category saved", requestT3.result);
+      };
+      requestT3.onerror = function() {
+        console.log("Database Transaction-Error: ", requestT3.error);
+      };  
+    txn3.oncomplete = function() {
+      console.log("Transaction is complete.");
+    };
+  };
+  request.onupgradeneeded = function(ReqEvent) {
+    db = request.result;
+    if (!db.objectStoreNames.contains("ledger_accounts", {keyPath: "id"})) {
+      db.createObjectStore("ledger_accounts", {keyPath: "id"});
+    }
+    if (!db.objectStoreNames.contains("ledger_account_categories", {keyPath: "id"})) {
+      db.createObjectStore("ledger_account_categories", {keyPath: "id"});
+    }
+    if (!db.objectStoreNames.contains("ledger_metadata", {keyPath: "id"})) {
+      db.createObjectStore("ledger_metadata", {keyPath: "id"});
+    }
+    console.log("Database initialize success.");
+  };
 }
