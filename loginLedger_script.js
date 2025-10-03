@@ -1,13 +1,7 @@
 function defaultOpen() {
   console.log("Start loginLedger");
   setLoginData();
-  let liLedgerString = localStorage.getItem("liLedger");
-  if(liLedgerString !== null) {
-    let liLedger = JSON.parse(liLedgerString);
-    let naddr = liLedger.naddr;
-    document.getElementById("ledgerLoginInfo").innerHTML = "Currently used accounting ledger: " + naddr;
-    document.getElementById("ledgerLoginInput").value = naddr;
-  }
+  setLoginTextBoxes();
 }
 
 async function logInLedger() {
@@ -225,4 +219,14 @@ function saveLedgerDataIndexDB(ledgerEvent) {
     }
     console.log("Database initialize success.");
   };
+}
+
+function setLoginTextBoxes() {
+  let liLedgerString = localStorage.getItem("liLedger");
+  if(liLedgerString !== null) {
+    let liLedger = JSON.parse(liLedgerString);
+    let naddr = liLedger.naddr;
+    document.getElementById("ledgerLoginInfo").innerHTML = "Currently used accounting ledger: " + naddr;
+    document.getElementById("ledgerLoginInput").value = naddr;
+  }
 }
