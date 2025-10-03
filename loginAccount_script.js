@@ -24,7 +24,9 @@ function logInNpub() {
     setLoginTextBoxes();
     let feedback = "Successfull log in.";
     document.getElementById("npubLoginInputFeedback").innerHTML = feedback;
+    console.log("Successfull log in.");
   } catch (error) {
+    console.log("Log in failed: " + error);
     let feedback = "Log In failed. Nsec not in correct format. " + error;
     document.getElementById("npubLoginInputFeedback").innerHTML = feedback;
   }
@@ -50,7 +52,9 @@ function createAndLogInNpub() {
     setLoginTextBoxes();
     let feedback = "Successfull key generation and log in.<br>Public key: " + pk + "<br>Secret key: " + sk;
     document.getElementById("npubCreateLoginInputFeedback").innerHTML = feedback;
+    console.log("Successfull key generation and log in.");
   } catch (error) {
+    console.log("Key generation and log in failed: " + error);
     let feedback = "Key generation failed: " + error;
     document.getElementById("npubCreateLoginInputFeedback").innerHTML = feedback;
   }
