@@ -15,6 +15,7 @@ async function logInLedger() {
       //get event from Relay
       const pool = new NostrTools.SimplePool();
       const relays = nAddrLedgerDec.data.relays;
+      console.log("Naddr relays: " + relays);
       function authF(eventA) {
         return NostrTools.finalizeEvent(eventA, liKeypair.sk);
       }
@@ -27,7 +28,7 @@ async function logInLedger() {
         },
         { onauth : authF }
       );
-      console.log('it exists indeed on this relay: ', event);
+      console.log('event from relay: ', event);
       if (event == null) { throw "Event not found on relay."; }
       //save
       console.log(nAddrLedger);
@@ -229,4 +230,5 @@ function setLoginTextBoxes() {
     document.getElementById("ledgerLoginInfo").innerHTML = "Currently used accounting ledger: " + naddr;
     document.getElementById("ledgerLoginInput").value = naddr;
   }
+  console.log("LogInTextBoxes set.");
 }
