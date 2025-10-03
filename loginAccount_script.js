@@ -1,14 +1,7 @@
 function defaultOpen() {
   console.log("Start loginAccount");
   setLoginData();
-  let liKeypairString = localStorage.getItem("liKeypair");
-  if(liKeypairString !== null) {
-    let liKeypair = JSON.parse(liKeypairString);
-    let npub = liKeypair.npub;
-    let nsec = NostrTools.nip19.nsecEncode(NostrTools.utils.hexToBytes(liKeypair.sk));
-    document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + npub;
-    document.getElementById("npubLoginInput").value = nsec;
-  }
+  setLoginTextBoxes();
 }
 
 function logInNpub() {
@@ -60,5 +53,16 @@ function createAndLogInNpub() {
   } catch (error) {
     let feedback = "Key generation failed: " + error;
     document.getElementById("npubCreateLoginInputFeedback").innerHTML = feedback;
+  }
+}
+
+function setLoginTextBoxes() {
+  let liKeypairString = localStorage.getItem("liKeypair");
+  if(liKeypairString !== null) {
+    let liKeypair = JSON.parse(liKeypairString);
+    let npub = liKeypair.npub;
+    let nsec = NostrTools.nip19.nsecEncode(NostrTools.utils.hexToBytes(liKeypair.sk));
+    document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + npub;
+    document.getElementById("npubLoginInput").value = nsec;
   }
 }
