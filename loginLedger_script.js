@@ -92,7 +92,7 @@ async function createAndLogInLedger() {
       console.log(liLedger);
       console.log(liLedgerString);
       localStorage.setItem("liLedger", liLedgerString);
-      saveLedgerEventDB(ledgerEvent);
+      saveLedgerEventDB(spal);
       setLoginData();
       setLoginTextBoxes();
       let feedback = "Successfully created and selected simple example ledger naddr. View Ledger under 'Accounting Ledger' in the main menu.<br>Naddr: " + spalNaddr;
