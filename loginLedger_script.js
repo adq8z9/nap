@@ -12,36 +12,21 @@ async function logInLedger() {
       let nAddrLedger = document.getElementById("ledgerLoginInput").value;
       let nAddrLedgerDec = NostrTools.nip19.decode(nAddrLedger);
       console.log(nAddrLedgerDec);
-      //get event from Relay
-      const pool = new NostrTools.SimplePool();
-      const relays = nAddrLedgerDec.data.relays;
-      console.log("Naddr relays: " + relays);
-      function authF(eventA) {
-        return NostrTools.finalizeEvent(eventA, liKeypair.sk);
-      }
-      const event = await pool.get(
-        relays,
-        {
-          kind: 37701,
-          tags: [ ["d", nAddrLedgerDec.data.identifier] ],
-          pubkey: nAddrLedgerDec.data.pubkey
-        },
-        { onauth : authF }
-      );
-      console.log('event from relay: ', event);
-      if (event == null) { throw "Event not found on relay."; }
-      //save
+      let ledgerEvent = await getLedgerEvent(nAddrLedgerDec, liKeypair.sk);
       console.log(nAddrLedger);
-      let liLedger = { naddr: nAddrLedger, event: event }
+      console.log(ledgerEvent);
+      let liLedger = { naddr: nAddrLedger, event: ledgerEvent }
       let liLedgerString = JSON.stringify(liLedger);
+      console.log(liLedgerString);
       localStorage.setItem("liLedger", liLedgerString);
-      saveLedgerDataIndexDB(event);
-      document.getElementById("ledgerLoginInfo").innerHTML = "Currently used accounting ledger: " + nAddrLedger;
-      document.getElementById("topNavLoginDataLedger").innerHTML = "ledger: " + nAddrLedger;
-      document.getElementById("ledgerLoginInput").value = nAddrLedger;
+      //saveLedgerDataIndexDB(event);
+      setLoginData();
+      setLoginTextBoxes();
       let feedback = "Successfully selected ledger naddr. View Ledger under 'Accounting Ledger' in the main menu.<br>Naddr: " + nAddrLedger;
       document.getElementById("ledgerLoginInputFeedback").innerHTML = feedback;
+      console.log("Successfully selected ledger naddr.");
     } catch (error) {
+      console.log("ccounting ledger selection failed: " + error);
       let feedback = "Accounting ledger selection failed: " + error;
       document.getElementById("ledgerLoginInputFeedback").innerHTML = feedback;
     }
