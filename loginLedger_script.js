@@ -15,7 +15,7 @@ async function logInLedger() {
       let ledgerEvent = await getLedgerEvent(nAddrLedgerDec, liKeypair.sk);
       console.log(nAddrLedger);
       console.log(ledgerEvent);
-      let liLedger = { naddr: nAddrLedger, event: ledgerEvent }
+      let liLedger = { naddr: nAddrLedger, id: ledgerEvent.id };
       let liLedgerString = JSON.stringify(liLedger);
       console.log(liLedgerString);
       localStorage.setItem("liLedger", liLedgerString);
@@ -87,7 +87,7 @@ async function createAndLogInLedger() {
       let event = await sendLedgerEvent(spal, liKeypair.sk, relays);
       let spalNaddr = NostrTools.nip19.naddrEncode( { "identifier": d, "relays": relays, "pubkey": spal.pubkey, "kind": spal.kind } );
       console.log(spalNaddr);
-      let liLedger = { naddr: spalNaddr, event: spal }
+      let liLedger = { naddr: spalNaddr, id: spal.id };
       let liLedgerString = JSON.stringify(liLedger);
       console.log(liLedger);
       console.log(liLedgerString);
