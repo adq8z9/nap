@@ -19,9 +19,9 @@ function logInNpub() {
     let keypair = { pk: pkHex, sk: skHex, npub: pk };
     let keypairString = JSON.stringify(keypair);
     localStorage.setItem("liKeypair", keypairString); 
-    document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + pk;
-    document.getElementById("topNavLoginDataNpub").innerHTML = "npub: " + pk;
-    document.getElementById("npubLoginInput").value = sk;
+    console.log("Keypair saved.");
+    setLoginData();
+    setLoginTextBoxes();
     let feedback = "Successfull log in.";
     document.getElementById("npubLoginInputFeedback").innerHTML = feedback;
   } catch (error) {
@@ -45,9 +45,9 @@ function createAndLogInNpub() {
     let keypair = { pk: pkHex, sk: skHex, npub: pk };
     let keypairString = JSON.stringify(keypair);
     localStorage.setItem("liKeypair", keypairString); 
-    document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + pk;
-    document.getElementById("topNavLoginDataNpub").innerHTML = "npub: " + pk;
-    document.getElementById("npubLoginInput").value = sk;
+    console.log("Keypair saved.");
+    setLoginData();
+    setLoginTextBoxes();
     let feedback = "Successfull key generation and log in.<br>Public key: " + pk + "<br>Secret key: " + sk;
     document.getElementById("npubCreateLoginInputFeedback").innerHTML = feedback;
   } catch (error) {
@@ -65,4 +65,5 @@ function setLoginTextBoxes() {
     document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + npub;
     document.getElementById("npubLoginInput").value = nsec;
   }
+  console.log("LoginTextBoxes set.");
 }
