@@ -9,9 +9,9 @@ function logInNpub() {
   try {
     let skDec = NostrTools.nip19.decode(sk);
     let skHex = NostrTools.utils.bytesToHex(skDec.data);
-    console.log(sk);
     console.log(skDec);
     console.log(skHex);
+    console.log(sk);
     let pkHex = NostrTools.getPublicKey(skDec.data);
     let pk = NostrTools.nip19.npubEncode(pkHex);
     console.log(pkHex);
