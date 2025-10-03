@@ -55,7 +55,7 @@ async function createAndLogInLedger() {
         ], 
         content: {
           name: "Simple Personal Accounting Ledger", 
-          acc_units: ["sat"],
+          acc_units: ["satoshi"],
           acc_account_categories: [
             { id: "acc_c_0", name: "Income" },
             { id: "acc_c_1", name: "Expense" }
@@ -84,37 +84,27 @@ async function createAndLogInLedger() {
         content: JSON.stringify(spalData.content),
       }, liKeypair.sk);
       console.log(spal);
-      //send example event to default Relay
-      const pool = new NostrTools.SimplePool();
-      function authF(eventA) {
-        return NostrTools.finalizeEvent(eventA, liKeypair.sk);
-      }
-      await Promise.any(pool.publish(relays, spal, { onauth : authF }));
-      const event = await pool.get(
-        relays,
-        {
-          ids: [ spal.id ],
-        },
-       );
-      console.log('it exists on this relay:', event);
-      if(event == null) { throw "Error when saving on relay!"; }
-      //save
+      let event = await sendLedgerEvent(spal, liKeypair.sk, relays);
       let spalNaddr = NostrTools.nip19.naddrEncode( { "identifier": d, "relays": relays, "pubkey": spal.pubkey, "kind": spal.kind } );
       console.log(spalNaddr);
       let liLedger = { naddr: spalNaddr, event: spal }
       let liLedgerString = JSON.stringify(liLedger);
+      console.log(liLedger);
+      console.log(liLedgerString);
       localStorage.setItem("liLedger", liLedgerString);
-      saveLedgerDataIndexDB(spal);
-      document.getElementById("ledgerLoginInfo").innerHTML = "Currently used accounting ledger: " + spalNaddr;
-      document.getElementById("topNavLoginDataLedger").innerHTML = "ledger: " + spalNaddr;
-      document.getElementById("ledgerLoginInput").value = spalNaddr;
+      //saveLedgerDataIndexDB(spal);
+      setLoginData();
+      setLoginTextBoxes();
       let feedback = "Successfully created and selected simple example ledger naddr. View Ledger under 'Accounting Ledger' in the main menu.<br>Naddr: " + spalNaddr;
       document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = feedback;
+      console.log("Successfully created and selected ledger naddr.");
     } catch (error) {
+      console.log("Accounting ledger generation and selection failed: " + error);
       let feedback = "Accounting ledger creation failed: " + error;
       document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = feedback;
     }
   } else {
+    console.log("No npub logged in.");
     let feedback = "First log in a npub, before creating a ledger event!";
     document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = feedback;
   }
