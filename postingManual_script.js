@@ -36,7 +36,7 @@ async function createAndPostManualLedgerEntry() {
           ["l", creditAccountLabel, nAddrLedgerRef],
           ["L", "leaccountingnip"],
           ["l", "ledgerentry", "leaccountingnip"],
-          ["published_at", Math.floor(Date.now() / 1000)]
+          ["published_at", Math.floor(Date.now() / 1000).toString()]
         ], 
         content: {
           debit_account: debitAccount,
