@@ -1,5 +1,5 @@
 function defaultOpen() {
-  console.log("Start login");
+  console.log("Start manual posting");
   setLoginData();
   setInputBoxes();
 }
