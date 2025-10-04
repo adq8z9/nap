@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="index_style.css">
     <script src="ledgerEdit_script.js"></script>
 	<script src="index_script_logindata.js"></script>
+	<script src="index_script_databasecomm.js"></script>
   </head>
 
   <body onload="defaultOpen()">
@@ -19,10 +20,11 @@
     </div>
     
     <div class="content">
-	  <a class="menuLink" href="ledger.html">&lt;--Back</a><br><br>
-      <h3 class="contentTitle">Edit Ledger</h3>
-	  <h4 class="contentSubTitle">edit accounting ledger:</h4>
-	  <p class="contentText">Not yet implemented.</p>
+	  <a class="menuLink" href="posting.html">&lt;--Back</a><br><br>
+      <h3 class="contentTitle">Overview Postings</h3>
+	  <h4 class="contentSubTitle">view accounting ledger entries:</h4>
+	  <p id="ledgerEntryView" class="contentText">No log in data. Log in first.</p>
+	  <table id="ledgerEntryViewTable" class="contentTable"></table>
     </div>
 
     <div class="bottomnav">
@@ -30,7 +32,7 @@
       <h4 class="bottomNavHeader">Nostr nips:</h4>
       <a class="bottomNavLink" href="https://github.com/nostr-protocol/nips">https://github.com/nostr-protocol/nips</a>
       <h4 class="bottomNavHeader">Le accounting nip:</h4>
-      <a class="bottomNavLink" href="https://github.com/adq8z9/le_accounting_nud">https://github.com/adq8z9/le_accounting_nud</a>
+      <a class="bottomNavLink" href="https://github.com/adq8z9/le_accounting_nip">https://github.com/adq8z9/le_accounting_nip</a>
     </div>
 	  
   </body>
