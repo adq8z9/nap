@@ -122,3 +122,46 @@ function getLedgerEventDB(ledgerEventId) {
     };
   });
 }
+
+function getLedgerEntryEventDB(ledgerEntryEventId) {
+  return new Promise((resolve, reject) => {
+    var db;
+    var request = window.indexedDB.open("Nap", 3);
+    console.log("getLedgerEntryEventDB");
+    request.onerror = ReqEvent => {  
+      console.log("IndexDB open error: " + ReqEvent.target.errorCode);
+      throw "IndexDB open error: " + ReqEvent.target.errorCode;
+    };
+    request.onsuccess = ReqEvent => {
+      db = ReqEvent.target.result;
+      console.log("IndexDB open success");
+      let txn = db.transaction("ledger_entry_events", "readwrite");
+      let ledger_accounts_ost = txn.objectStore("ledger_entry_events");
+      console.log(ledgerEntryEventId);
+      let requestT = ledger_accounts_ost.get(ledgerEntryEventId);
+      requestT.onsuccess = function() { 
+        console.log("Ledger entry event retrieved from DB: ", requestT.result);
+        let ledgerEntryEvent = requestT.result.event;
+        console.log(ledgerEntryEvent);
+        return resolve(ledgerEntryEvent);
+      };
+      requestT.onerror = function() {
+        console.log("Ledger entry event Database Transaction-Error: " + requestT.error);
+        throw "Ledger entry event Database Transaction-Error: " + requestT.error;
+      };  
+      txn.oncomplete = function() {
+        console.log("Ledger entry event Database Transaction is complete.");
+      };
+    };
+    request.onupgradeneeded = function(ReqEvent) {
+      db = request.result;
+      if (!db.objectStoreNames.contains("ledger_events", {keyPath: "id"})) {
+        db.createObjectStore("ledger_events", {keyPath: "id"});
+      }
+      if (!db.objectStoreNames.contains("ledger_entry_events", {keyPath: "id"})) {
+      db.createObjectStore("ledger_entry_events", {keyPath: "id"});
+    }
+      console.log("Database initialize success.");
+    };
+  });
+}
