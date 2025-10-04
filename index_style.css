@@ -50,6 +50,8 @@
 }
 
 .contentTable {
+  table-layout: fixed;
+  width: 100%;
   border: 1px solid #1c1e21;
   border-collapse: collapse;
   text-align: left;
@@ -57,10 +59,12 @@
   th {
     border: 1px solid #1c1e21;
     padding: 10px;
+    word-wrap: break-word;
   }
   td {
     border: 1px solid #1c1e21;
     padding: 10px;
+    word-wrap: break-word;
   }
 }
 
