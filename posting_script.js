@@ -1,4 +1,4 @@
 function defaultOpen() {
-  console.log("Start login");
+  console.log("Start posting");
   setLoginData();
 }
