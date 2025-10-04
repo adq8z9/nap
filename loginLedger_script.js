@@ -58,19 +58,21 @@ async function createAndLogInLedger() {
           acc_units: ["satoshi"],
           acc_account_categories: [
             { id: "acc_c_0", name: "Income" },
-            { id: "acc_c_1", name: "Expense" }
+            { id: "acc_c_1", name: "Expense" },
+            { id: "acc_c_2", name: "Asset" }
           ], 
           acc_accounts: [ 
-            { id: "acc_0001", name: "Remuneration", parent_id: "acc_c_0" },
-            { id: "acc_0002", name: "Incoming Zaps", parent_id: "acc_c_0" },
-            { id: "acc_0003", name: "Incoming Donations", parent_id: "acc_c_0" },
-            { id: "acc_0004", name: "Sales", parent_id: "acc_c_0" },
+            { id: "acc_0001", name: "Incoming Zaps", parent_id: "acc_c_0" },
+            { id: "acc_0002", name: "Incoming Donations", parent_id: "acc_c_0" },
+            { id: "acc_0003", name: "Sales", parent_id: "acc_c_0" },
+            { id: "acc_0004", name: "Remuneration", parent_id: "acc_c_0" },
             { id: "acc_0005", name: "Own Deposit on Wallet", parent_id: "acc_c_0" },
-            { id: "acc_1001", name: "Payments", parent_id: "acc_c_1" },
-            { id: "acc_1002", name: "Outgoing Zaps", parent_id: "acc_c_1" },
-            { id: "acc_1003", name: "Outgoing Donations", parent_id: "acc_c_1" },
-            { id: "acc_1004", name: "Purchases", parent_id: "acc_c_1" },
-            { id: "acc_1005", name: "Own Withdrawal from Wallet", parent_id: "acc_c_1" }
+            { id: "acc_1001", name: "Outgoing Zaps", parent_id: "acc_c_1" },
+            { id: "acc_1002", name: "Outgoing Donations", parent_id: "acc_c_1" },
+            { id: "acc_1003", name: "Purchases", parent_id: "acc_c_1" },
+            { id: "acc_1004", name: "Payments", parent_id: "acc_c_1" },
+            { id: "acc_1005", name: "Own Withdrawal from Wallet", parent_id: "acc_c_1" },
+            { id: "acc_2001", name: "Wallet Balance", parent_id: "acc_c_2" }
           ],
           acc_accountants: [
             { p: liKeypair.pk }
