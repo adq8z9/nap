@@ -36,7 +36,7 @@ async function createAndPostManualLedgerEntry() {
           ["l", creditAccountLabel, nAddrLedgerRef],
           ["L", "leaccountingnip"],
           ["l", "ledgerentry", "leaccountingnip"],
-          //["published_at", Math.floor(Date.now() / 1000)]
+          ["published_at", Math.floor(Date.now() / 1000)]
         ], 
         content: {
           debit_account: debitAccount,
@@ -55,17 +55,8 @@ async function createAndPostManualLedgerEntry() {
         content: JSON.stringify(ledgerEntryData.content),
       }, liKeypair.sk);
       console.log(leEvent);
-      /*let event = await sendLedgerEvent(spal, liKeypair.sk, relays);
-      let spalNaddr = NostrTools.nip19.naddrEncode( { "identifier": d, "relays": relays, "pubkey": spal.pubkey, "kind": spal.kind } );
-      console.log(spalNaddr);
-      let liLedger = { naddr: spalNaddr, id: spal.id };
-      let liLedgerString = JSON.stringify(liLedger);
-      console.log(liLedger);
-      console.log(liLedgerString);
-      localStorage.setItem("liLedger", liLedgerString);
-      saveLedgerEventDB(spal);
-      setLoginData();
-      setLoginTextBoxes();*/
+      let event = await sendLedgerEntryEvent(leEvent, liKeypair.sk, relays);
+      saveLedgerEntryEventDB(leEvent);
       let feedback = "Successfully created and posted manual ledger entry. View Entry under 'Ledger Postings' -> 'Overview postings' in the main menu."
       document.getElementById("manualPostingCreateFeedback").innerHTML = feedback;
       document.getElementById("manualPostingCreateFeedback2").innerHTML = feedback;
