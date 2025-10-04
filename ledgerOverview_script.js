@@ -4,11 +4,14 @@ function defaultOpen() {
   setLedgerViewTable();
 }
 
-function setLedgerViewTable() {
+async function setLedgerViewTable() {
   let liLedgerString = localStorage.getItem("liLedger");
   if(liLedgerString !== null) {
     let liLedger = JSON.parse(liLedgerString);
-    let ledgerEvent = liLedger.event;
+    let ledgerEventId = liLedger.id;
+    console.log(ledgerEventId);
+    let ledgerEvent = await getLedgerEventDB(ledgerEventId);
+    console.log(ledgerEvent);
     let ledgerEventContent = JSON.parse(ledgerEvent.content);
     console.log(ledgerEventContent);
     let evLedgerAccounts = ledgerEventContent.acc_accounts;
@@ -37,6 +40,7 @@ function setLedgerViewTable() {
     for (let i = 0; i < evLedgerAccountants.length; i++) {
       ledgerMetadataString += NostrTools.nip19.npubEncode(ledgerEventContent.acc_accountants[i].p) + " ";
     }
+    console.log(ledgerMetadataString);
     document.getElementById("ledgerView").innerHTML = ledgerMetadataString;
     document.getElementById("ledgerViewTable").innerHTML = ledgerViewTableString;
   }
