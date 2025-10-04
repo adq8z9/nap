@@ -32,6 +32,9 @@ function saveLedgerEventDB(ledgerEvent) {
     if (!db.objectStoreNames.contains("ledger_events", {keyPath: "id"})) {
       db.createObjectStore("ledger_events", {keyPath: "id"});
     }
+    if (!db.objectStoreNames.contains("ledger_entry_events", {keyPath: "id"})) {
+      db.createObjectStore("ledger_entry_events", {keyPath: "id"});
+    }
     console.log("Database initialize success.");
   };
 }
@@ -112,6 +115,9 @@ function getLedgerEventDB(ledgerEventId) {
       if (!db.objectStoreNames.contains("ledger_events", {keyPath: "id"})) {
         db.createObjectStore("ledger_events", {keyPath: "id"});
       }
+      if (!db.objectStoreNames.contains("ledger_entry_events", {keyPath: "id"})) {
+      db.createObjectStore("ledger_entry_events", {keyPath: "id"});
+    }
       console.log("Database initialize success.");
     };
   });
