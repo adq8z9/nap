@@ -1,4 +1,4 @@
 function defaultOpen() {
-  console.log("Start ledger edit");
+  console.log("Start nwc posting");
   setLoginData();
 }
