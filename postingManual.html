@@ -22,10 +22,39 @@
     </div>
     
     <div class="content">
-	    <a class="menuLink" href="posting.html">&lt;--Back</a><br><br>
+      <a class="menuLink" href="posting.html">&lt;--Back</a><br><br>
       <h3 class="contentTitle">Manual posting</h3>
-	    <h4 class="contentSubTitle">post manual ledger entry:</h4>
-	    <p class="contentText">No log in data. Log in first.</p>
+	  <h4 class="contentSubTitle">post manual ledger entry:</h4>
+	  <p class="contentText" id="manualPostingCreateFeedback">No log in data. Log in first.</p>
+	  <br>
+	  <form>
+	    <label>Debit account: </label>
+	    <select id="debit_account"></select>
+	    <br><br>
+	    <label>Credit account: </label>
+	    <select id="credit_account"></select>
+	    <br>
+	    <label>Tip: </label>
+	    <br>
+	    <label>An expense should be booked - debit: expense-account, credit: asset-account</label>
+	    <br>
+	    <label>An income should be booked - debit: asset-account, credit: income-account</label>
+	    <br><br>
+	    <label>Transaction amount: </label>
+        <input type="number" id="accounting_amount" min="0" max="2100000000000000" step="1" value="0">
+        <br><br>
+        <label>Transaction unit: </label>
+        <select id="accounting_unit"></select>
+        <br><br>
+        <label>Transaction date: </label>
+        <input type="date" id="accounting_date">
+        <br><br>
+        <label>Posting desription: </label>
+        <input type="text" id="accounting_description">
+        <br><br>
+        <input type="button" value="post ledger entry" onclick="createAndPostManualLedgerEntry()">
+        <p class="contentText" id="manualPostingCreateFeedback2"></p>
+      </form>
     </div>
 
     <div class="bottomnav">
