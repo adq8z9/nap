@@ -3,7 +3,7 @@ function setLoginData() {
   if(liKeypairString !== null) {
     let liKeypair = JSON.parse(liKeypairString);
     let npub = liKeypair.npub;
-    document.getElementById("topNavLoginDataNpub").innerHTML = "npub: " + npub;
+    document.getElementById("topNavLoginDataNpub").innerHTML = "accountant: " + npub;
   }
 
   let liLedgerString = localStorage.getItem("liLedger");
