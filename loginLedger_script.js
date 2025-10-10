@@ -19,7 +19,7 @@ async function logInLedger() {
       let liLedgerString = JSON.stringify(liLedger);
       console.log(liLedgerString);
       localStorage.setItem("liLedger", liLedgerString);
-      saveLedgerEventDB(ledgerEvent);
+      let lE = await saveLedgerEventDB(ledgerEvent);
       setLoginData();
       setLoginTextBoxes();
       let feedback = "Successfully selected ledger naddr. View Ledger under 'Accounting Ledger' in the main menu.<br>Naddr: " + nAddrLedger;
@@ -94,7 +94,7 @@ async function createAndLogInLedger() {
       console.log(liLedger);
       console.log(liLedgerString);
       localStorage.setItem("liLedger", liLedgerString);
-      saveLedgerEventDB(spal);
+      let lE = await saveLedgerEventDB(spal);
       setLoginData();
       setLoginTextBoxes();
       let feedback = "Successfully created and selected simple example ledger naddr. View Ledger under 'Accounting Ledger' in the main menu.<br>Naddr: " + spalNaddr;
