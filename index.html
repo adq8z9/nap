@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="index_style.css">
     <script src="index_script.js"></script>
 	<script src="index_script_logindata.js"></script>
+	<script src="index_script_refreshdata.js"></script>
   </head>
 
   <body onload="defaultOpen()">
@@ -27,7 +28,7 @@
       <a class="menuLink" href="./posting.html">Ledger Postings</a><br><br>
       <a class="menuLink" href="./ledger.html">Accounting Ledger</a><br><br>
       <a class="menuLink" href="./login.html">Nostr Log In</a><br><br>
-	  <a class="menuLink" href="">Refresh Data</a><br><br>
+	  <button onclick="refreshData()">Refresh Data</button><p id="refreshDataFeedback" class="menuLink"></p><br><br>
     </div>
 
     <div class="bottomnav">
