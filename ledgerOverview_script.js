@@ -7,6 +7,7 @@ function defaultOpen() {
 async function setLedgerViewTable() {
   let liLedgerString = localStorage.getItem("liLedger");
   if(liLedgerString !== null) {
+  try {
     let liLedger = JSON.parse(liLedgerString);
     let ledgerEventId = liLedger.id;
     console.log(ledgerEventId);
@@ -43,5 +44,8 @@ async function setLedgerViewTable() {
     console.log(ledgerMetadataString);
     document.getElementById("ledgerView").innerHTML = ledgerMetadataString;
     document.getElementById("ledgerViewTable").innerHTML = ledgerViewTableString;
+  } catch (error) {
+    document.getElementById("ledgerView").innerHTML = "Ledger loading failed: " + error;
+  } 
   }
 }
