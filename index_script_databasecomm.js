@@ -1,4 +1,5 @@
 function saveLedgerEventDB(ledgerEvent) {
+return new Promise((resolve, reject) => {
   var db;
   var request = window.indexedDB.open("Nap", 3);
   request.onerror = ReqEvent => {
@@ -18,6 +19,8 @@ function saveLedgerEventDB(ledgerEvent) {
     let requestT = ledger_accounts_ost.put(ledgerEvEntry);
     requestT.onsuccess = function() { 
       console.log("Ledger event saved in DB: ", requestT.result);
+      let lE = requestT.result.event;
+      return resolve(lE);
     };
     requestT.onerror = function() {
       console.log("Ledger event Database Transaction-Error: " + requestT.error);
@@ -37,9 +40,11 @@ function saveLedgerEventDB(ledgerEvent) {
     }
     console.log("Database initialize success.");
   };
+});
 }
 
 function saveLedgerEntryEventDB(leEvent) {
+return new Promise((resolve, reject) => {
   var db;
   var request = window.indexedDB.open("Nap", 3);
   request.onerror = ReqEvent => {
@@ -58,7 +63,9 @@ function saveLedgerEntryEventDB(leEvent) {
     };
     let requestT = ledger_accounts_ost.put(ledgerEntryEvEntry);
     requestT.onsuccess = function() { 
+      let lE = requestT.result.event;
       console.log("Ledger entry event saved in DB: ", requestT.result);
+      return resolve(lE);
     };
     requestT.onerror = function() {
       console.log("Ledger entry event Database Transaction-Error: " + requestT.error);
@@ -78,6 +85,7 @@ function saveLedgerEntryEventDB(leEvent) {
     }
     console.log("Database initialize success.");
   };
+});
 }
 
 function getLedgerEventDB(ledgerEventId) {
