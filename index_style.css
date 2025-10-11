@@ -68,6 +68,10 @@
   }
 }
 
+.feedbackText {
+  color: #7c3aed;
+}
+
 .bottomnav {
   background-color: #0000000d;
   text-align: left;
