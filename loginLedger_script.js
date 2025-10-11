@@ -26,7 +26,7 @@ async function logInLedger() {
       document.getElementById("ledgerLoginInputFeedback").innerHTML = feedback;
       console.log("Successfully selected ledger naddr.");
     } catch (error) {
-      console.log("ccounting ledger selection failed: " + error);
+      console.log("Accounting ledger selection failed: " + error);
       let feedback = "Accounting ledger selection failed: " + error;
       document.getElementById("ledgerLoginInputFeedback").innerHTML = feedback;
     }
