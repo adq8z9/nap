@@ -10,9 +10,9 @@ async function getLedgerEvent(naddrLedger, secK) {
   const event = await pool.get(
     relays,
     {
-      kind: 37701,
-      tags: [ ["d", naddrLedger.data.identifier] ],
-      pubkey: naddrLedger.data.pubkey
+      kinds: [37701],
+      '#d': [naddrLedger.data.identifier],
+      authors: [naddrLedger.data.pubkey]
     },
     { onauth : authF }
   );
