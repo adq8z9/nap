@@ -43,7 +43,7 @@ async function createAndLogInLedger() {
       let liKeypair = JSON.parse(liKeypairString);
       //Create example ledger
       const d = "spal";
-      const relays = ["wss://personal.relays.land"];
+      const relays = ["wss://nap.nostr1.com"];
       const spalData = {
         tags: [
           ["-"],
