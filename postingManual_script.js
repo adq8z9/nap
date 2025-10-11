@@ -62,8 +62,8 @@ async function createAndPostManualLedgerEntry() {
       document.getElementById("manualPostingCreateFeedback2").innerHTML = feedback;
       console.log("Successfully created and posted ledger entry.");
     } catch (error) {
-      console.log("Accounting ledger generation and selection failed: " + error);
-      let feedback = "Accounting ledger creation failed: " + error;
+      console.log("Posting creation and sending failed: " + error);
+      let feedback = "Manual ledger entry creation and posting failed: " + error;
       document.getElementById("manualPostingCreateFeedback").innerHTML = feedback;
       document.getElementById("manualPostingCreateFeedback2").innerHTML = feedback;
     }
