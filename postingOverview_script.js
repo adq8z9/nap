@@ -7,6 +7,7 @@ function defaultOpen() {
 async function setLedgerEntryViewTable() {
   let liLedgerString = localStorage.getItem("liLedger");
   if(liLedgerString !== null) {
+  try {
     let liLedger = JSON.parse(liLedgerString);
     let ledgerEventId = liLedger.id;
     console.log(ledgerEventId);
@@ -50,5 +51,10 @@ async function setLedgerEntryViewTable() {
     let ledgerEntryMetadataString = "";
     document.getElementById("ledgerEntryView").innerHTML = ledgerEntryMetadataString;
     document.getElementById("ledgerEntryViewTable").innerHTML = ledgerEntryViewTableString;
+  } catch (error) {
+    console.log("Postings overview loading failed: " + error);
+    let ledgerEntryFeedbackString = "Postings overview loading failed: " + error;
+    document.getElementById("ledgerEntryView").innerHTML = ledgerEntryFeedbackString;
+  }
   }
 }
