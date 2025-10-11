@@ -79,6 +79,7 @@ async function setInputBoxes() {
   let liKeypairString = localStorage.getItem("liKeypair");
   let liLedgerString = localStorage.getItem("liLedger");
   if(liKeypairString !== null && liLedgerString !== null) {
+    try {
     let feedback = ""
     document.getElementById("manualPostingCreateFeedback").innerHTML = feedback;
     let liLedger = JSON.parse(liLedgerString);
@@ -118,6 +119,10 @@ async function setInputBoxes() {
     document.getElementById("credit_account").innerHTML = accountOptions;
     document.getElementById("accounting_unit").innerHTML = accountingUnits;
     console.log("Set Input Boxes.");
+    } catch (error) {
+    let feedback = "Loading Ledger Data failed: " + error;
+    document.getElementById("manualPostingCreateFeedback").innerHTML = feedback;
+    }
   } else {
     let feedback = "No log in data. Log in first.";
     document.getElementById("manualPostingCreateFeedback").innerHTML = feedback;
