@@ -21,34 +21,16 @@ async function setLedgerEntryViewTable() {
     console.log(evLedgerAccounts);
     console.log(evLedgerAccountCategories);
     console.log(evLedgerAccountants);
-    let ledgerEntryEventId = "bc8b420b35e0cfa1947d10db737fcd998b770bff7162e595c474f8bfe658bbd6";
-    let ledgerEntryEvent = await getLedgerEntryEventDB(ledgerEntryEventId);
-    console.log(ledgerEntryEvent);
-    let ledgerEntryEventContent = JSON.parse(ledgerEntryEvent.content);
-    console.log(ledgerEntryEventContent);
+    let ledgerEntryEvents = await getLedgerEntryEventsDB();
+    console.log(ledgerEntryEvents);
     let ledgerEntryViewTableString = "<tr><th>Posting ID</th><th>Accounting Date</th><th>Debit Account</th><th>Credit Account</th><th>Amount</th><th>Unit</th><th>Description</th><th>Accountant</th></tr>";
-    ledgerEntryViewTableString += "<tr><td>" + ledgerEntryEvent.id + "</td><td>" + new Date(ledgerEntryEvent.created_at*1000) + "</td><td>" + ledgerEntryEventContent.debit_account + "</td><td>" + ledgerEntryEventContent.credit_account + "</td><td>" +  (ledgerEntryEventContent.acc_amount[0]*ledgerEntryEventContent.acc_amount[1]) + "</td><td>" + ledgerEntryEventContent.acc_amount[2] + "</td><td>" + ledgerEntryEventContent.description + "</td><td>" + NostrTools.nip19.npubEncode(ledgerEntryEvent.pubkey) + "</td></tr>";
-    /*for (let i = 0; i < evLedgerAccounts.length; i++) {
-      ledgerViewTableString += "<tr><td>" + evLedgerAccounts[i].id + "</td><td>" + evLedgerAccounts[i].name + "</td><td>";
-      let hasCategory = false;
-      for (let j = 0; j < evLedgerAccountCategories.length; j++) {
-        console.l
-        if (evLedgerAccounts[i].parent_id == evLedgerAccountCategories[j].id) {
-          ledgerViewTableString += evLedgerAccountCategories[j].name + "</td></tr>";
-          hasCategory = true;
-        }
-      }
-      if (!hasCategory) {
-        ledgerViewTableString += " " + "</td></tr>";
-      }
+    for (let i = 0; i < ledgerEntryEvents.length; i++) {
+      let ledgerEntryEventContent = JSON.parse(ledgerEntryEvents[i].event.content);
+      ledgerEntryViewTableString += "<tr><td>" + ledgerEntryEvents[i].event.id + "</td><td>" + new Date(ledgerEntryEvents[i].event.created_at*1000) + "</td><td>" + ledgerEntryEventContent.debit_account + "</td><td>" + ledgerEntryEventContent.credit_account + "</td><td>" +  (ledgerEntryEventContent.acc_amount[0]*ledgerEntryEventContent.acc_amount[1]) + "</td><td>" + ledgerEntryEventContent.acc_amount[2] + "</td><td>" + ledgerEntryEventContent.description + "</td><td>" + NostrTools.nip19.npubEncode(ledgerEntryEvents[i].event.pubkey) + "</td></tr>";
     }
-    console.log(ledgerViewTableString);
-    let ledgerMetadataString = "Name: " + ledgerEventContent.name + "<br><br>Units: " + ledgerEventContent.acc_units + "<br><br>Accountants: ";
-    for (let i = 0; i < evLedgerAccountants.length; i++) {
-      ledgerMetadataString += NostrTools.nip19.npubEncode(ledgerEventContent.acc_accountants[i].p) + " ";
-    }
-    console.log(ledgerMetadataString);*/
-    let ledgerEntryMetadataString = "";
+    console.log(ledgerEntryViewTableString);
+    let ledgerEntryMetadataString = "All ledger entries.";
+    console.log(ledgerEntryMetadataString);
     document.getElementById("ledgerEntryView").innerHTML = ledgerEntryMetadataString;
     document.getElementById("ledgerEntryViewTable").innerHTML = ledgerEntryViewTableString;
   } catch (error) {
