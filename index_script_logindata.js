@@ -9,7 +9,7 @@ function setLoginData() {
   let liLedgerString = localStorage.getItem("liLedger");
   if(liLedgerString !== null) {
     let liLedger = JSON.parse(liLedgerString);
-    let naddr = liLedger.naddr;
-    document.getElementById("topNavLoginDataLedger").innerHTML = "ledger: " + naddr;
+    let naddrShort = liLedger.naddrShort;
+    document.getElementById("topNavLoginDataLedger").innerHTML = "ledger: " + naddrShort;
   }
 }
