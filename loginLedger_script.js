@@ -75,8 +75,11 @@ async function createAndLogInLedger() {
             { id: "acc_1005", name: "Own Withdrawal from Wallet", parent_id: "acc_c_1" },
             { id: "acc_2001", name: "Wallet Balance", parent_id: "acc_c_2" }
           ],
+          acc_accountant_categories: [
+            { id: "acc_ac_1", name: "admin" }
+          ],
           acc_accountants: [
-            { p: liKeypair.pk }
+            { id: "acc_a_1", name: "Le me", parent_id: "acc_ac_1", pubkey: liKeypair.pk }
           ]
         }   
       };
@@ -90,12 +93,13 @@ async function createAndLogInLedger() {
       let event = await sendLedgerEvent(spal, liKeypair.sk, relays);
       let spalNaddr = NostrTools.nip19.naddrEncode( { "identifier": d, "relays": relays, "pubkey": spal.pubkey, "kind": spal.kind } );
       console.log(spalNaddr);
-      let liLedger = { naddr: spalNaddr, id: spal.id };
+      let spalNaddrShort = spalNaddr.slice(0,8) + "..." + spalNaddr.slice(-8);
+      console.log(spalNaddrShort);
+      let liLedger = { naddr: spalNaddr, id: spal.id, naddrShort: spalNaddrShort };
       let liLedgerString = JSON.stringify(liLedger);
       console.log(liLedger);
       console.log(liLedgerString);
       localStorage.setItem("liLedger", liLedgerString);
-      let lE = await saveLedgerEventDB(spal);
       setLoginData();
       setLoginTextBoxes();
       let feedback = "Successfully created and selected simple example ledger naddr. View Ledger under 'Accounting Ledger' in the main menu.<br>Naddr: " + spalNaddr;
