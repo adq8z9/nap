@@ -119,7 +119,12 @@ async function createAndLogInLedger() {
 }
 
 function getAccountantName(liPK, liLeventContent) {
-  return "Le me";
+  for (let i = 0; i < liLeventContent.acc_accountants.length; i++) {
+    if (liLeventContent.acc_accountants[i].pubkey == liPK) {
+      return liLeventContent.acc_accountants[i].name;
+    }
+  }
+  return "";
 }
 
 function setLoginTextBoxes() {
