@@ -19,7 +19,11 @@ async function getLedgerEvent(naddrLedger, secK) {
   console.log('Event from Relay: ', event);
   if (event == null) { 
     throw "Event not found on relay."; 
-  } else { 
+  } else if (!NostrTools.verifyEvent(event)) {
+    throw "Not valid event received from relay.";
+  } else if (event.kind != 37701 || event.pubkey != naddrLedger.data.pubkey) {
+    throw "Not correct event received from relay.";
+  } else {
     return event; 
   }
 }
