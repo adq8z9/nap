@@ -2,7 +2,7 @@ function setLoginData() {
   let liKeypairString = localStorage.getItem("liKeypair");
   if(liKeypairString !== null) {
     let liKeypair = JSON.parse(liKeypairString);
-    let npub = liKeypair.npub;
+    let npubShort = liKeypair.npubShort;
     document.getElementById("topNavLoginDataNpub").innerHTML = "accountant: " + npub;
   }
 
