@@ -96,7 +96,7 @@ async function createAndLogInLedger() {
       console.log(spalNaddr);
       let spalNaddrShort = spalNaddr.slice(0,8) + "..." + spalNaddr.slice(-8);
       console.log(spalNaddrShort);
-      let liLedger = { naddr: spalNaddr, id: spal.id, naddrShort: spalNaddrShort, ledgerName: ledgerEventContent.name, accountantName: getAccountantName(liKeypair.pk, ledgerEventContent) };
+      let liLedger = { naddr: spalNaddr, id: spal.id, naddrShort: spalNaddrShort, ledgerName: spalData.content.name, accountantName: getAccountantName(liKeypair.pk, spalData.content) };
       let liLedgerString = JSON.stringify(liLedger);
       console.log(liLedger);
       console.log(liLedgerString);
@@ -116,6 +116,10 @@ async function createAndLogInLedger() {
     let feedback = "First log in a npub, before creating a ledger event!";
     document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = feedback;
   }
+}
+
+function getAccountantName(liPK, liLeventContent) {
+  return "Le me";
 }
 
 function setLoginTextBoxes() {
