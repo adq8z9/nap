@@ -45,6 +45,10 @@ async function sendLedgerEvent(ledgerEvent, secK, relays) {
   console.log('Event from Relay: ', event);
   if(event == null) { 
     throw "Error when saving on relay!"; 
+  } else if (!NostrTools.verifyEvent(event)) {
+    throw "Not valid event received from relay.";
+  } else if (event.id != ledgerEvent.id) {
+    throw "Not correct event received from relay.";
   } else {
     return event;
   }
