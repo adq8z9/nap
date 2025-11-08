@@ -14,9 +14,11 @@ function logInNpub() {
     console.log(sk);
     let pkHex = NostrTools.getPublicKey(skDec.data);
     let pk = NostrTools.nip19.npubEncode(pkHex);
+    let pkShort = pk.slice(0,8) + "..." + pk.slice(-8);
     console.log(pkHex);
     console.log(pk);
-    let keypair = { pk: pkHex, sk: skHex, npub: pk };
+    console.log(pkShort);
+    let keypair = { pk: pkHex, sk: skHex, npub: pk, npubShort: pkShort };
     let keypairString = JSON.stringify(keypair);
     localStorage.setItem("liKeypair", keypairString); 
     console.log("Keypair saved.");
@@ -42,9 +44,11 @@ function createAndLogInNpub() {
     console.log(sk);
     let pkHex = NostrTools.getPublicKey(skDec);
     let pk = NostrTools.nip19.npubEncode(pkHex);
+    let pkShort = pk.slice(0,8) + "..." + pk.slice(-8);
     console.log(pkHex);
     console.log(pk);
-    let keypair = { pk: pkHex, sk: skHex, npub: pk };
+    console.log(pkShort);
+    let keypair = { pk: pkHex, sk: skHex, npub: pk, npubShort: pkShort };
     let keypairString = JSON.stringify(keypair);
     localStorage.setItem("liKeypair", keypairString); 
     console.log("Keypair saved.");
