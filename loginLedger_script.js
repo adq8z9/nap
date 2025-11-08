@@ -17,7 +17,8 @@ async function logInLedger() {
       let nAddrLedgerShort = nAddrLedger.slice(0,8) + "..." + nAddrLedger.slice(-8);
       console.log(nAddrLedgerShort);
       console.log(ledgerEvent);
-      let liLedger = { naddr: nAddrLedger, id: ledgerEvent.id, naddrShort: nAddrLedgerShort };
+      ledgerEventContent = JSON.parse(ledgerEvent.content);
+      let liLedger = { naddr: nAddrLedger, id: ledgerEvent.id, naddrShort: nAddrLedgerShort, ledgerName: ledgerEventContent.name, accountantName: getAccountantName(liKeypair.pk, ledgerEventContent) };
       let liLedgerString = JSON.stringify(liLedger);
       console.log(liLedgerString);
       localStorage.setItem("liLedger", liLedgerString);
@@ -95,7 +96,7 @@ async function createAndLogInLedger() {
       console.log(spalNaddr);
       let spalNaddrShort = spalNaddr.slice(0,8) + "..." + spalNaddr.slice(-8);
       console.log(spalNaddrShort);
-      let liLedger = { naddr: spalNaddr, id: spal.id, naddrShort: spalNaddrShort };
+      let liLedger = { naddr: spalNaddr, id: spal.id, naddrShort: spalNaddrShort, ledgerName: ledgerEventContent.name, accountantName: getAccountantName(liKeypair.pk, ledgerEventContent) };
       let liLedgerString = JSON.stringify(liLedger);
       console.log(liLedger);
       console.log(liLedgerString);
