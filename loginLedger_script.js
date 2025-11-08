@@ -14,12 +14,13 @@ async function logInLedger() {
       console.log(nAddrLedgerDec);
       let ledgerEvent = await getLedgerEvent(nAddrLedgerDec, liKeypair.sk);
       console.log(nAddrLedger);
+      let nAddrLedgerShort = nAddrLedger.slice(0,8) + "..." + nAddrLedger.slice(-8);
+      console.log(nAddrLedgerShort);
       console.log(ledgerEvent);
-      let liLedger = { naddr: nAddrLedger, id: ledgerEvent.id };
+      let liLedger = { naddr: nAddrLedger, id: ledgerEvent.id, naddrShort: nAddrLedgerShort };
       let liLedgerString = JSON.stringify(liLedger);
       console.log(liLedgerString);
       localStorage.setItem("liLedger", liLedgerString);
-      let lE = await saveLedgerEventDB(ledgerEvent);
       setLoginData();
       setLoginTextBoxes();
       let feedback = "Successfully selected ledger naddr. View Ledger under 'Accounting Ledger' in the main menu.<br>Naddr: " + nAddrLedger;
