@@ -56,7 +56,7 @@ async function createAndLogInLedger() {
           ["p", liKeypair.pk]
         ], 
         content: {
-          name: "Simple Personal Accounting Ledger", 
+          name: "Simple personal accounting ledger", 
           acc_units: ["satoshi"],
           acc_account_categories: [
             { id: "acc_c_0", name: "Income" },
