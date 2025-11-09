@@ -3,6 +3,10 @@
   font-family:Verdana;
 }
 
+body {
+  background-color: white;
+}
+
 .topnav {
   background-color: #0000000d;
   padding: 15px;
