@@ -8,10 +8,6 @@
     <link rel="stylesheet" href="index_style.css">
     <script src="index_script.js"></script>
 	<script src="index_script_logindata.js"></script>
-	<script src="index_script_refreshdata.js"></script>
-	<script src="index_script_relaycomm.js"></script>
-	<script src="index_script_databasecomm.js"></script>
-	<script src="nostr_tools.js"></script>
   </head>
 
   <body onload="defaultOpen()">
@@ -21,8 +17,8 @@
       <img src="nap.png" alt="" style="width:65px;height:48px;">
       <p style="color:red">Note: This tool is just a simple test-program. Don't use it for real application and use example data just for throw-away purposes.</p>
       <h4 id="topNavLogin">Currently logged in:</h4>
-      <p id="topNavLoginDataNpub">accountant: not logged in</p>
-      <p id="topNavLoginDataLedger">ledger: not selected</p>
+      <p id="topNavLoginDataNpub"><b>accountant:</b> not logged in</p>
+      <p id="topNavLoginDataLedger"><b>ledger:</b> not selected</p>
     </div>
     
     <div class="content">
@@ -31,18 +27,14 @@
       <a class="menuLink" href="./posting.html">Ledger Postings</a><br><br>
       <a class="menuLink" href="./ledger.html">Accounting Ledger</a><br><br>
       <a class="menuLink" href="./login.html">Nostr Log In</a><br><br>
-	  <button onclick="refreshData()">Refresh Data</button><p id="refreshDataFeedback" class="feedbackText"></p><br><br>
     </div>
 
     <div class="bottomnav">
-      <h4 class="bottomNavHeader">Le accounting nip:</h4>
-      <a class="bottomNavLink" href="https://github.com/adq8z9/le_accounting_nip">https://github.com/adq8z9/le_accounting_nip</a>
-      <h4 class="bottomNavHeader">Nostr accounting program (nap):</h4>
-      <a class="bottomNavLink" href="https://github.com/adq8z9/nap">https://github.com/adq8z9/nap<br><br></a>
-      <h4 class="bottomNavHeader">Nostr protocol:</h4>
-      <a class="bottomNavLink" href="https://github.com/nostr-protocol/nips">https://github.com/nostr-protocol/nips</a>
-      <h4 class="bottomNavHeader">Nostr tools:</h4>
-      <a class="bottomNavLink" href="https://github.com/nbd-wtf/nostr-tools">https://github.com/nbd-wtf/nostr-tools</a>
+      <h4 class="bottomNavHeader">Sources:</h4>
+      <p class="bottomNavText"><b>Le accounting nip:</b> <a class="bottomNavLink" href="https://github.com/adq8z9/le_accounting_nip">https://github.com/adq8z9/le_accounting_nip</a></p>
+      <p class="bottomNavText"><b>Nostr accounting program (nap):</b> <a class="bottomNavLink" href="https://github.com/adq8z9/nap">https://github.com/adq8z9/nap</a></p>
+      <p class="bottomNavText"><b>Nostr protocol:</b> <a class="bottomNavLink" href="https://github.com/nostr-protocol/nips">https://github.com/nostr-protocol/nips</a></p>
+      <p class="bottomNavText"><b>Nostr tools:</b> <a class="bottomNavLink" href="https://github.com/nbd-wtf/nostr-tools">https://github.com/nbd-wtf/nostr-tools</a></p>
     </div>
 	  
   </body>
