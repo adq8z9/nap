@@ -6,8 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index_style.css">
-    <script src="ledgerEdit_script.js"></script>
+    <script src="postingNWC_script.js"></script>
 	<script src="index_script_logindata.js"></script>
+	<script src="nostr_tools.js"></script>
   </head>
 
   <body onload="defaultOpen()">
@@ -22,15 +23,16 @@
 	  <a class="menuLink" href="posting.html">&lt;--Back</a><br><br>
       <h3 class="contentTitle">NWC Posting</h3>
 	  <h4 class="contentSubTitle">post nwc ledger entries:</h4>
-	  <p class="contentText">Not yet implemented.</p>
+	  <p class="contentText" id="connectNWCWalletInfo">Currently connected nwc wallet: no nwc wallet connected</p>
+      <p class="contentText">Connect nwc wallet with nwc wallet connection uri in format nostr+walletconnect://...:</p>
+      <input type="text" placeholder="Connect ledger with nostr+walletconnect://..." class="contentText" id="connectNWCWalletInput">
+      <button onclick="connectNWCWallet()">Select</button>
+	  <p class="feedbackText" id="connectNWCWalletInputFeedback"></p>
+	  <p class="contentText" id="connectNWCWalletData"></p>
     </div>
 
     <div class="bottomnav">
       <img src="nap.png" alt="" style="width:65px;height:48px;">
-      <h4 class="bottomNavHeader">Le accounting nip:</h4>
-      <a class="bottomNavLink" href="https://github.com/adq8z9/le_accounting_nip">https://github.com/adq8z9/le_accounting_nip</a>
-      <h4 class="bottomNavHeader">Nostr accounting program (nap):</h4>
-      <a class="bottomNavLink" href="https://github.com/adq8z9/nap">https://github.com/adq8z9/nap<br><br></a>
     </div>
 	  
   </body>
