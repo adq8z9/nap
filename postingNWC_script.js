@@ -16,7 +16,7 @@ async function connectNWCWallet() {
       console.log(nwcConnectionData);
       let nwcInfoEvent = await getNwcInfoEvent(nwcConnectionData);
       console.log(nwcInfoEvent);
-      let liNWCd = { connectionString: nwcConnectionDataString, connectionData: nwcConnectionData };
+      let liNWCd = { connectionString: nwcConnectionDataString, connectionData: nwcConnectionData, info: nwcInfoEvent };
       let liNWCdString = JSON.stringify(liNWCd);
       localStorage.setItem("liNWC", liNWCdString);
       setNWCView();
@@ -35,25 +35,51 @@ async function connectNWCWallet() {
   }
 }
 
-function setNWCView() {
-  //Create data request
-  const nwcRequestData = {
-    tags: [
-      ["L", "leaccountingnip"],
-      ["p", "test"]
-    ], 
-    content: {
-      name: "test"
-    }   
-  };
-  /*let nwcRequest = NostrTools.finalizeEvent({
-    kind: 37701,
-    created_at: Math.floor(Date.now() / 1000),
-    tags: nwcRequestData.tags,
-    content: JSON.stringify(nwcRequestData.content),
-  }, nwcConnectionData.secret);
-  console.log(nwcRequest);*/
-  let nwcBalance = "<br><b>Wallet Balance: </b><br><br>121.000 sats";
-  document.getElementById("connectNWCWalletData").innerHTML = nwcBalance;
-  console.log("NWC View set.");
+async function setNWCView() {
+  let liLedgerString = localStorage.getItem("liLedger");
+  let liKeypairString = localStorage.getItem("liKeypair");
+  let liNWCString = localStorage.getItem("liNWC");
+  if(liLedgerString !== null && liKeypairString !== null && liNWCString !== null) {
+    try {
+      let liNWC = JSON.parse(liNWCString);
+      //Create data request
+      let loading = "<br><b>Wallet Balance: </b><br><br>Loading.";
+      document.getElementById("connectNWCWalletData").innerHTML = loading;
+      const nwcRequestContent = {
+        "method": "get_balance", 
+        "params": {},
+      };
+      let conversationKey = NostrTools.nip44.getConversationKey(liNWC.connectionData.secret, liNWC.connectionData.pubkey);
+      let nwcRequest = NostrTools.finalizeEvent({
+        kind: 23194,
+        created_at: Math.floor(Date.now() / 1000),
+        tags: [['encryption','nip44_v2'],['p', liNWC.connectionData.pubkey]],
+        content: NostrTools.nip44.encrypt(JSON.stringify(nwcRequestContent), conversationKey)
+      }, liNWC.connectionData.secret);
+      console.log(nwcRequest);
+      let nwcResponseEvent = await requestNwcEvent(nwcRequest, liNWC.connectionData);
+      console.log(nwcResponseEvent);
+      console.log(nwcResponseEvent.content);
+      console.log(liNWC.connectionData.secret);
+      console.log(NostrTools.getPublicKey(liNWC.connectionData.secret));
+      console.log(conversationKey);
+      let responseContentDecrypted = NostrTools.nip44.decrypt(nwcResponseEvent.content, conversationKey);
+      console.log(responseContentDecrypted);
+      let response = JSON.parse(responseContentDecrypted);
+      console.log(response);
+      let nwcData = "<br><b>Wallet Balance: </b><br><br>" + (response.result.balance/1000) + " sats";
+      document.getElementById("connectNWCWalletData").innerHTML = nwcData;
+      document.getElementById("connectNWCWalletInfo").innerHTML = "Currently connected nwc wallet: " + liNWC.connectionData.pubkey;
+      document.getElementById("connectNWCWalletInput").value = liNWC.connectionString;
+      console.log("NWC View set.");
+    } catch (error) {
+      document.getElementById("connectNWCWalletData").innerHTML = "Creating nwc wallet view failed: " + error;
+    } 
+  } else if (liLedgerString == null) {
+    document.getElementById("connectNWCWalletData").innerHTML = "No Ledger selected.";
+  } else if (liKeypairString == null) {
+    document.getElementById("connectNWCWalletData").innerHTML = "No accountant logged in.";
+  } else if (liNWCString == null) {
+    document.getElementById("connectNWCWalletData").innerHTML = "No nwc wallet connected.";
+  }
 }
