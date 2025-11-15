@@ -1,10 +1,10 @@
 function defaultOpen() {
   console.log("Start nwc posting");
   setLoginData();
-  setLoginTextBoxes();
+  setNWCView();
 }
 
-function connectNWCWallet() {
+async function connectNWCWallet() {
   console.log("Connect nwc Wallet");
   let liLedgerString = localStorage.getItem("liLedger");
   let liKeypairString = localStorage.getItem("liKeypair");
@@ -13,24 +13,15 @@ function connectNWCWallet() {
       let nwcConnectionDataString = document.getElementById("connectNWCWalletInput").value;
       console.log("" + nwcConnectionDataString);
       let nwcConnectionData = NostrTools.nip47.parseConnectionString(nwcConnectionDataString);
-      console.log(nwcConnectionData)
-      //Create data request
-      const nwcRequestData = {
-        tags: [
-          ["L", "leaccountingnip"],
-          ["p", "test"]
-        ], 
-        content: {
-          name: "test"
-        }   
-      };
-      let nwcRequest = NostrTools.finalizeEvent({
-        kind: 37701,
-        created_at: Math.floor(Date.now() / 1000),
-        tags: nwcRequestData.tags,
-        content: JSON.stringify(nwcRequestData.content),
-      }, nwcConnectionData.secret);
-      console.log(nwcRequest);
+      console.log(nwcConnectionData);
+      let nwcInfoEvent = await getNwcInfoEvent(nwcConnectionData);
+      console.log(nwcInfoEvent);
+      let liNWCd = { connectionString: nwcConnectionDataString, connectionData: nwcConnectionData };
+      let liNWCdString = JSON.stringify(liNWCd);
+      localStorage.setItem("liNWC", liNWCdString);
+      setNWCView();
+      let feedback = "Succesfully connected nwc wallet.";
+      document.getElementById("connectNWCWalletInputFeedback").innerHTML = feedback;
       console.log("Nwc wallet connected.");
     } catch (error) {
       console.log("Nwc wallet connection failed: " + error);
@@ -44,6 +35,25 @@ function connectNWCWallet() {
   }
 }
 
-function setLoginTextBoxes() {
-  console.log("LogInTextBoxes set.");
+function setNWCView() {
+  //Create data request
+  const nwcRequestData = {
+    tags: [
+      ["L", "leaccountingnip"],
+      ["p", "test"]
+    ], 
+    content: {
+      name: "test"
+    }   
+  };
+  /*let nwcRequest = NostrTools.finalizeEvent({
+    kind: 37701,
+    created_at: Math.floor(Date.now() / 1000),
+    tags: nwcRequestData.tags,
+    content: JSON.stringify(nwcRequestData.content),
+  }, nwcConnectionData.secret);
+  console.log(nwcRequest);*/
+  let nwcBalance = "<br><b>Wallet Balance: </b><br><br>121.000 sats";
+  document.getElementById("connectNWCWalletData").innerHTML = nwcBalance;
+  console.log("NWC View set.");
 }
