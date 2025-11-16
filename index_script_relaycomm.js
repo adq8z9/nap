@@ -136,12 +136,6 @@ async function requestNwcEvent(nwcRequestEv, nwcConnection) {
   }
 }
 
-function delay(n) {
-  return new Promise(function(resolve) {
-    setTimeout(resolve, n * 1000);
-  });
-}
-
 async function sendLedgerEntryEvent(leEvent, secK, relays) {
   const pool = new NostrTools.SimplePool();
   console.log("Send Ledger Entry event.");
@@ -162,4 +156,10 @@ async function sendLedgerEntryEvent(leEvent, secK, relays) {
   } else {
     return event;
   }
+}
+
+function delay(n) {
+  return new Promise(function(resolve) {
+    setTimeout(resolve, n * 1000);
+  });
 }
