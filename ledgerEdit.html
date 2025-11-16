@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="index_style.css">
     <script src="ledgerEdit_script.js"></script>
 	<script src="index_script_logindata.js"></script>
+	<script src="index_script_relaycomm.js"></script>
+	<script src="nostr_tools.js"></script>
   </head>
 
   <body onload="defaultOpen()">
@@ -23,9 +25,15 @@
       <h3 class="contentTitle">Edit Ledger</h3>
 	  <h4 class="contentSubTitle">edit accounting ledger:</h4>
 	  <p id="ledgerEdit" class="contentText">No accounting ledger selected.</p>
-	  <button onclick="editAndSaveLedger()">Save edited ledger</button>
-	  <p class="feedbackText" id"editAndSaveFeedback"></p>
-	  <textarea id="ledgerEditTextarea"></textarea>
+	  <p class="feedbackText" id="editAndSaveFeedback"></p>
+	  <br>
+	  <form>
+	    <label>Name: </label>
+	    <input type="text" id="ledger_name">
+	    <br><br>
+        <input type="button" value="Save edited ledger" onclick="editAndSaveLedger()">
+        <p class="feedbackText" id="editAndSaveFeedback2"></p>
+      </form>
     </div>
 
     <div class="bottomnav">
