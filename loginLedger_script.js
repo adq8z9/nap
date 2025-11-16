@@ -60,31 +60,31 @@ async function createAndLogInLedger() {
           ["p", liKeypair.pk]
         ], 
         content: {
-          name: "Simple personal accounting ledger", 
-          acc_units: ["satoshi"],
+          name: "Simple test ledger", 
+          acc_units: ["sats"],
           acc_account_categories: [
             { id: "acc_c_0", name: "Income" },
             { id: "acc_c_1", name: "Expense" },
             { id: "acc_c_2", name: "Asset" }
           ], 
           acc_accounts: [ 
-            { id: "acc_0001", name: "Incoming Zaps", parent_id: "acc_c_0" },
-            { id: "acc_0002", name: "Incoming Donations", parent_id: "acc_c_0" },
-            { id: "acc_0003", name: "Sales", parent_id: "acc_c_0" },
-            { id: "acc_0004", name: "Remuneration", parent_id: "acc_c_0" },
-            { id: "acc_0005", name: "Own Deposit on Wallet", parent_id: "acc_c_0" },
-            { id: "acc_1001", name: "Outgoing Zaps", parent_id: "acc_c_1" },
-            { id: "acc_1002", name: "Outgoing Donations", parent_id: "acc_c_1" },
-            { id: "acc_1003", name: "Purchases", parent_id: "acc_c_1" },
-            { id: "acc_1004", name: "Payments", parent_id: "acc_c_1" },
-            { id: "acc_1005", name: "Own Withdrawal from Wallet", parent_id: "acc_c_1" },
-            { id: "acc_2001", name: "Wallet Balance", parent_id: "acc_c_2" }
+            { id: "acc_0001", name: "Incoming Zaps", parent_id: ["acc_c_0"] },
+            { id: "acc_0002", name: "Incoming Donations", parent_id: ["acc_c_0"] },
+            { id: "acc_0003", name: "Sales", parent_id: ["acc_c_0"] },
+            { id: "acc_0004", name: "Remuneration", parent_id: ["acc_c_0"] },
+            { id: "acc_0005", name: "Own Deposit on Wallet", parent_id: ["acc_c_0"] },
+            { id: "acc_1001", name: "Outgoing Zaps", parent_id: ["acc_c_1" },
+            { id: "acc_1002", name: "Outgoing Donations", parent_id: ["acc_c_1"] },
+            { id: "acc_1003", name: "Purchases", parent_id: ["acc_c_1"] },
+            { id: "acc_1004", name: "Payments", parent_id: ["acc_c_1"] },
+            { id: "acc_1005", name: "Own Withdrawal from Wallet", parent_id: ["acc_c_1"] },
+            { id: "acc_2001", name: "Wallet Balance", parent_id: ["acc_c_2"] }
           ],
           acc_accountant_categories: [
-            { id: "acc_ac_1", name: "admin" }
+            { id: "acc_ac_0", name: "admin" }
           ],
           acc_accountants: [
-            { id: "acc_a_1", name: "Le me", parent_id: "acc_ac_1", pubkey: liKeypair.pk }
+            { id: "acc_a_0", name: "Le me", parent_id: ["acc_ac_0"], pubkey: liKeypair.pk }
           ]
         }   
       };
@@ -97,10 +97,13 @@ async function createAndLogInLedger() {
       console.log(spal);
       let event = await sendLedgerEvent(spal, liKeypair.sk, relays);
       let spalNaddr = NostrTools.nip19.naddrEncode( { "identifier": d, "relays": relays, "pubkey": spal.pubkey, "kind": spal.kind } );
-      console.log(spalNaddr);
       let spalNaddrShort = spalNaddr.slice(0,8) + "..." + spalNaddr.slice(-8);
+      console.log(spalNaddr);
       console.log(spalNaddrShort);
-      let liLedger = { naddr: spalNaddr, id: spal.id, naddrShort: spalNaddrShort, ledgerName: spalData.content.name, accountantName: getAccountantName(liKeypair.pk, spalData.content) };
+      let accountant = getAccountantByPubkey(liKeypair.pk, spalData.content);
+      let accountantNameD = "";
+      if (accountant != null) { accountantNameD = accountant.name; }
+      let liLedger = { naddr: spalNaddr, id: spal.id, naddrShort: spalNaddrShort, ledgerName: spalData.content.name, accountantName: accountantNameD };
       let liLedgerString = JSON.stringify(liLedger);
       console.log(liLedger);
       console.log(liLedgerString);
