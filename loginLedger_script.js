@@ -11,15 +11,19 @@ async function logInLedger() {
       let liKeypair = JSON.parse(liKeypairString);
       let nAddrLedger = document.getElementById("ledgerLoginInput").value;
       let nAddrLedgerDec = NostrTools.nip19.decode(nAddrLedger);
+      console.log(nAddrLedger);
       console.log(nAddrLedgerDec);
       let ledgerEvent = await getLedgerEvent(nAddrLedgerDec, liKeypair.sk);
-      console.log(nAddrLedger);
       let nAddrLedgerShort = nAddrLedger.slice(0,8) + "..." + nAddrLedger.slice(-8);
       console.log(nAddrLedgerShort);
       console.log(ledgerEvent);
       ledgerEventContent = JSON.parse(ledgerEvent.content);
-      let liLedger = { naddr: nAddrLedger, id: ledgerEvent.id, naddrShort: nAddrLedgerShort, ledgerName: ledgerEventContent.name, accountantName: getAccountantName(liKeypair.pk, ledgerEventContent) };
+      let accountant = getAccountantByPubkey(liKeypair.pk, ledgerEventContent);
+      let accountantNameD = "";
+      if (accountant != null) { accountantNameD = accountant.name; }
+      let liLedger = { naddr: nAddrLedger, id: ledgerEvent.id, naddrShort: nAddrLedgerShort, ledgerName: ledgerEventContent.name, accountantName: accountantNameD };
       let liLedgerString = JSON.stringify(liLedger);
+      console.log(liLedger);
       console.log(liLedgerString);
       localStorage.setItem("liLedger", liLedgerString);
       setLoginData();
@@ -33,7 +37,7 @@ async function logInLedger() {
       document.getElementById("ledgerLoginInputFeedback").innerHTML = feedback;
     }
   } else {
-    let feedback = "First log in a npub, before selecting a ledger event!";
+    let feedback = "First log in a npub, before selecting a ledger event.";
     document.getElementById("ledgerLoginInputFeedback").innerHTML = feedback;
   }
 }
