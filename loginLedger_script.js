@@ -122,15 +122,6 @@ async function createAndLogInLedger() {
   }
 }
 
-function getAccountantName(liPK, liLeventContent) {
-  for (let i = 0; i < liLeventContent.acc_accountants.length; i++) {
-    if (liLeventContent.acc_accountants[i].pubkey == liPK) {
-      return liLeventContent.acc_accountants[i].name;
-    }
-  }
-  return "";
-}
-
 function setLoginTextBoxes() {
   let liLedgerString = localStorage.getItem("liLedger");
   if(liLedgerString !== null) {
@@ -138,6 +129,8 @@ function setLoginTextBoxes() {
     let naddr = liLedger.naddr;
     document.getElementById("ledgerLoginInfo").innerHTML = "Currently used accounting ledger: " + naddr;
     document.getElementById("ledgerLoginInput").value = naddr;
+    document.getElementById("ledgerLoginInputFeedback").innerHTML = "";
+    document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = "";
   }
   console.log("LogInTextBoxes set.");
 }
