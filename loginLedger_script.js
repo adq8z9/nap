@@ -8,6 +8,7 @@ async function logInLedger() {
   let liKeypairString = localStorage.getItem("liKeypair");
   if(liKeypairString !== null) {
     try {
+      document.getElementById("ledgerLoginInputFeedback").innerHTML = "Loading.";
       let liKeypair = JSON.parse(liKeypairString);
       let nAddrLedger = document.getElementById("ledgerLoginInput").value;
       let nAddrLedgerDec = NostrTools.nip19.decode(nAddrLedger);
@@ -46,6 +47,7 @@ async function createAndLogInLedger() {
   let liKeypairString = localStorage.getItem("liKeypair");
   if(liKeypairString !== null) {
     try {
+      document.getElementById("ledgerCreateLoginInputFeedback").innerHTML = "Loading.";
       let liKeypair = JSON.parse(liKeypairString);
       //Create example ledger
       const d = "spal";
@@ -73,7 +75,7 @@ async function createAndLogInLedger() {
             { id: "acc_0003", name: "Sales", parent_id: ["acc_c_0"] },
             { id: "acc_0004", name: "Remuneration", parent_id: ["acc_c_0"] },
             { id: "acc_0005", name: "Own Deposit on Wallet", parent_id: ["acc_c_0"] },
-            { id: "acc_1001", name: "Outgoing Zaps", parent_id: ["acc_c_1" },
+            { id: "acc_1001", name: "Outgoing Zaps", parent_id: ["acc_c_1"] },
             { id: "acc_1002", name: "Outgoing Donations", parent_id: ["acc_c_1"] },
             { id: "acc_1003", name: "Purchases", parent_id: ["acc_c_1"] },
             { id: "acc_1004", name: "Payments", parent_id: ["acc_c_1"] },
