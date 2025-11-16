@@ -72,6 +72,8 @@ function setLoginTextBoxes() {
     let nsec = NostrTools.nip19.nsecEncode(NostrTools.utils.hexToBytes(liKeypair.sk));
     document.getElementById("npubLoginInfo").innerHTML = "Currently logged in: " + npub;
     document.getElementById("npubLoginInput").value = nsec;
+    document.getElementById("npubLoginInputFeedback").innerHTML = "";
+    document.getElementById("npubCreateLoginInputFeedback").innerHTML = "";
   }
   console.log("LoginTextBoxes set.");
 }
