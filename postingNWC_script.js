@@ -42,6 +42,8 @@ async function setNWCView() {
   if(liLedgerString !== null && liKeypairString !== null && liNWCString !== null) {
     try {
       let liNWC = JSON.parse(liNWCString);
+      document.getElementById("connectNWCWalletInfo").innerHTML = "Currently connected nwc wallet: " + liNWC.connectionData.pubkey;
+      document.getElementById("connectNWCWalletInput").value = liNWC.connectionString;
       //Create data request
       let loading = "<br><b>Wallet Balance: </b><br><br>Loading.";
       document.getElementById("connectNWCWalletData").innerHTML = loading;
@@ -69,8 +71,6 @@ async function setNWCView() {
       console.log(response);
       let nwcData = "<br><b>Wallet Balance: </b><br><br>" + (response.result.balance/1000) + " sats";
       document.getElementById("connectNWCWalletData").innerHTML = nwcData;
-      document.getElementById("connectNWCWalletInfo").innerHTML = "Currently connected nwc wallet: " + liNWC.connectionData.pubkey;
-      document.getElementById("connectNWCWalletInput").value = liNWC.connectionString;
       console.log("NWC View set.");
     } catch (error) {
       document.getElementById("connectNWCWalletData").innerHTML = "Creating nwc wallet view failed: " + error;
