@@ -31,24 +31,27 @@ async function getLedgerEvent(naddrLedger, secK) {
 async function sendLedgerEvent(ledgerEvent, secK, relays) {
   const pool = new NostrTools.SimplePool();
   console.log("Send Ledger event.");
+  console.log("Send relays: " + relays);
   function authF(eventA) {
     console.log("Relay authentication.");
     return NostrTools.finalizeEvent(eventA, secK);
   }
   await Promise.any(pool.publish(relays, ledgerEvent, { onauth : authF }));
+  await delay(1);
   const event = await pool.get(
     relays,
     {
       ids: [ ledgerEvent.id ],
     },
+    { onauth : authF }
   );
-  console.log('Event from Relay: ', event);
+  console.log('Event sent, from Relay: ', event);
   if(event == null) { 
     throw "Error when saving on relay!"; 
   } else if (!NostrTools.verifyEvent(event)) {
-    throw "Not valid event received from relay.";
+    throw "Not valid event received from relay after saving.";
   } else if (event.id != ledgerEvent.id) {
-    throw "Not correct event received from relay.";
+    throw "Not correct event received from relay after saving.";
   } else {
     return event;
   }
