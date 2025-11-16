@@ -11,11 +11,11 @@ async function logInLedger() {
       let liKeypair = JSON.parse(liKeypairString);
       let nAddrLedger = document.getElementById("ledgerLoginInput").value;
       let nAddrLedgerDec = NostrTools.nip19.decode(nAddrLedger);
+      let nAddrLedgerShort = nAddrLedger.slice(0,8) + "..." + nAddrLedger.slice(-8);
       console.log(nAddrLedger);
       console.log(nAddrLedgerDec);
-      let ledgerEvent = await getLedgerEvent(nAddrLedgerDec, liKeypair.sk);
-      let nAddrLedgerShort = nAddrLedger.slice(0,8) + "..." + nAddrLedger.slice(-8);
       console.log(nAddrLedgerShort);
+      let ledgerEvent = await getLedgerEvent(nAddrLedgerDec, liKeypair.sk);
       console.log(ledgerEvent);
       ledgerEventContent = JSON.parse(ledgerEvent.content);
       let accountant = getAccountantByPubkey(liKeypair.pk, ledgerEventContent);
