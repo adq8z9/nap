@@ -45,16 +45,12 @@ async function setLedgerViewTable() {
       for (let i = 0; i < evLedgerAccountants.length; i++) {
         npubAcc = NostrTools.nip19.npubEncode(ledgerEventContent.acc_accountants[i].pubkey);
         ledgerMetadataString += ledgerEventContent.acc_accountants[i].name + " (" + npubAcc.slice(0,8) + "..." + npubAcc.slice(-8);
-        let hasCategory = false;
         for (let j = 0; j < evLedgerAccountantCategories.length; j++) {
           if (evLedgerAccountants[i].parent_id == evLedgerAccountantCategories[j].id) {
-            ledgerMetadataString += ", " + evLedgerAccountantCategories[j].name + ") ";
-            hasCategory = true;
+            ledgerMetadataString += ", " + evLedgerAccountantCategories[j].name;
           }
         }
-        if (!hasCategory) {
-          ledgerMetadataString += ") ";
-        }
+        ledgerMetadataString += ") ";
       }
       ledgerMetadataString += "<br><br>Accounting Units: " + ledgerEventContent.acc_units + "<br><br>Ledger accounts: <br>";
       console.log(ledgerMetadataString);
