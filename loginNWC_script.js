@@ -45,6 +45,7 @@ async function setNWCView() {
       let liNWC = JSON.parse(liNWCString);
       document.getElementById("connectNWCWalletInfo").innerHTML = "Currently connected nwc wallet: " + liNWC.connectionData.pubkey;
       document.getElementById("connectNWCWalletInput").value = liNWC.connectionString;
+      document.getElementById("connectNWCWalletInputFeedback").innerHTML = "";
       //Create data request
       document.getElementById("connectNWCWalletData").innerHTML = "";
       document.getElementById("connectNWCWalletDataFeedback").innerHTML = "Loading.";
