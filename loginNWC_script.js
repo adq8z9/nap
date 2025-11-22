@@ -15,13 +15,34 @@ async function connectNWCWallet() {
       console.log(nwcConnectionDataString);
       let nwcConnectionData = NostrTools.nip47.parseConnectionString(nwcConnectionDataString);
       console.log(nwcConnectionData);
+      //Info Event
       let nwcInfoEvent = await getNwcInfoEvent(nwcConnectionData);
       console.log(nwcInfoEvent);
       let liNWCd = { connectionString: nwcConnectionDataString, connectionData: nwcConnectionData, info: nwcInfoEvent };
       let liNWCdString = JSON.stringify(liNWCd);
+      //Info
+      const nwcRequestContent = {
+        "method": "get_info", 
+        "params": {},
+      };
+      let conversationKey = NostrTools.nip44.getConversationKey(liNWCd.connectionData.secret, liNWCd.connectionData.pubkey);
+      let nwcRequest = NostrTools.finalizeEvent({
+        kind: 23194,
+        created_at: Math.floor(Date.now() / 1000),
+        tags: [['encryption','nip44_v2'],['p', liNWCd.connectionData.pubkey]],
+        content: NostrTools.nip44.encrypt(JSON.stringify(nwcRequestContent), conversationKey)
+      }, liNWCd.connectionData.secret);
+      console.log(nwcRequest);
+      let nwcResponseEvent = await requestNwcEvent(nwcRequest, liNWCd.connectionData);
+      console.log(nwcResponseEvent);
+      let responseContentDecrypted = NostrTools.nip44.decrypt(nwcResponseEvent.content, conversationKey);
+      console.log(responseContentDecrypted);
+      let response = JSON.parse(responseContentDecrypted);
+      console.log(response);
+      //saving
       localStorage.setItem("liNWC", liNWCdString);
       setLoginTextBoxes();
-      let feedback = "Succesfully connected nwc wallet.";
+      let feedback = "Succesfully connected nwc wallet. " + "Alias: " + response.result.alias + ", lud16: " + response.result.lud16 + ", connection: " + response.result.metadata.name;
       document.getElementById("connectNWCWalletInputFeedback").innerHTML = feedback;
       console.log("Nwc wallet connected.");
     } catch (error) {
