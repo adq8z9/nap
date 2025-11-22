@@ -9,7 +9,8 @@ async function setLedgerViewTable() {
   let liKeypairString = localStorage.getItem("liKeypair");
   if(liLedgerString !== null && liKeypairString !== null) {
     try {
-      document.getElementById("ledgerView").innerHTML = "Loading.";
+      document.getElementById("ledgerView").innerHTML = "";
+      document.getElementById("ledgerViewFeedback").innerHTML = "Loading.";
       let liKeypair = JSON.parse(liKeypairString);
       let liLedger = JSON.parse(liLedgerString);
       let nAddrLedgerDec = NostrTools.nip19.decode(liLedger.naddr);
@@ -61,10 +62,11 @@ async function setLedgerViewTable() {
       }
       ledgerMetadataString += "<br><br>Accounting Units: " + ledgerEventContent.acc_units + "<br><br>Ledger accounts: <br>";
       console.log(ledgerMetadataString);
+      document.getElementById("ledgerViewFeedback").innerHTML = "";
       document.getElementById("ledgerView").innerHTML = ledgerMetadataString;
       document.getElementById("ledgerViewList").innerHTML = ledgerViewListString;
     } catch (error) {
-      document.getElementById("ledgerView").innerHTML = "Ledger loading failed: " + error;
+      document.getElementById("ledgerViewFeedback").innerHTML = "Ledger loading failed: " + error;
     } 
   } else if (liLedgerString == null) {
     document.getElementById("ledgerView").innerHTML = "No Ledger selected.";
