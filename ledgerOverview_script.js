@@ -26,21 +26,28 @@ async function setLedgerViewTable() {
       console.log(evLedgerAccountCategories);
       console.log(evLedgerAccountants);
       console.log(evLedgerAccountantCategories);
-      let ledgerViewTableString = "<tr><th>Account Category</th><th>Account ID</th><th>Account Name</th></tr>";
-      for (let i = 0; i < evLedgerAccounts.length; i++) {
-        let hasCategory = false;
-        for (let j = 0; j < evLedgerAccountCategories.length; j++) {
-          if (evLedgerAccounts[i].parent_id == evLedgerAccountCategories[j].id) {
-            ledgerViewTableString += "<tr><td>" + evLedgerAccountCategories[j].name + "</td>";
-            hasCategory = true;
+      let evLedgerAccountCategoryTree = getLedgerAccountCategoryTree(evLedgerAccountCategories);
+      let ledgerViewListString = "";
+      if (evLedgerAccountCategoryTree.length == 0) {
+        for (let i = 0; i < evLedgerAccounts.length; i++) {
+          ledgerViewListString += "<li>" + evLedgerAccounts[i].id + " - " + evLedgerAccounts[i].name + "</li>";
+        }
+      } else {
+        for (let i = 0; i < evLedgerAccountCategoryTree.length; i++) {
+          ledgerViewListString += "<li>" + evLedgerAccountCategoryTree[i].root.name + "<ul>";
+          let roundNumber = 0;
+          ledgerViewListString += setCategoryLeafsList(evLedgerAccountCategoryTree[i].leafs, roundNumber);
+          for (let m = 0; m < evLedgerAccounts.length; m++) {
+            for (let n = 0; n < evLedgerAccounts[m].parent_id.length; n++) {
+              if (evLedgerAccounts[m].parent_id[n] == evLedgerAccountCategoryTree[i].root.id) {
+                ledgerViewListString += "<li>" + evLedgerAccounts[m].id + " - " + evLedgerAccounts[m].name + "</li>";
+              }
+            }
           }
+          ledgerViewListString += "</ul></li>";
         }
-        if (!hasCategory) {
-          ledgerViewTableString += "<tr><td>" + "- </td>";
-        }
-        ledgerViewTableString += "<td>" + evLedgerAccounts[i].id + "</td><td>" + evLedgerAccounts[i].name + "</td></tr>";
       }
-      console.log(ledgerViewTableString);
+      console.log(ledgerViewListString);
       let ledgerMetadataString = "Ledger Name: " + ledgerEventContent.name + "<br><br>Accountants: ";
       for (let i = 0; i < evLedgerAccountants.length; i++) {
         npubAcc = NostrTools.nip19.npubEncode(ledgerEventContent.acc_accountants[i].pubkey);
@@ -55,7 +62,7 @@ async function setLedgerViewTable() {
       ledgerMetadataString += "<br><br>Accounting Units: " + ledgerEventContent.acc_units + "<br><br>Ledger accounts: <br>";
       console.log(ledgerMetadataString);
       document.getElementById("ledgerView").innerHTML = ledgerMetadataString;
-      document.getElementById("ledgerViewTable").innerHTML = ledgerViewTableString;
+      document.getElementById("ledgerViewList").innerHTML = ledgerViewListString;
     } catch (error) {
       document.getElementById("ledgerView").innerHTML = "Ledger loading failed: " + error;
     } 
@@ -64,4 +71,8 @@ async function setLedgerViewTable() {
   } else if (liKeypairString == null) {
     document.getElementById("ledgerView").innerHTML = "No accountant logged in.";
   }
+}
+
+function setCategoryLeafsList(categoryLeafs, round) {
+  return "";
 }
