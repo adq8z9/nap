@@ -20,7 +20,7 @@ async function connectNWCWallet() {
       let liNWCd = { connectionString: nwcConnectionDataString, connectionData: nwcConnectionData, info: nwcInfoEvent };
       let liNWCdString = JSON.stringify(liNWCd);
       localStorage.setItem("liNWC", liNWCdString);
-      setNWCView();
+      setLoginTextBoxes();
       let feedback = "Succesfully connected nwc wallet.";
       document.getElementById("connectNWCWalletInputFeedback").innerHTML = feedback;
       console.log("Nwc wallet connected.");
@@ -29,10 +29,10 @@ async function connectNWCWallet() {
       let feedback = "NWC wallet connection failed: " + error;
       document.getElementById("connectNWCWalletInputFeedback").innerHTML = feedback;
     } 
-  } else if (liLedgerString == null) {
-      document.getElementById("connectNWCWalletInputFeedback").innerHTML = "Error: No Ledger selected.";
   } else if (liKeypairString == null) {
       document.getElementById("connectNWCWalletInputFeedback").innerHTML = "Error: No accountant logged in.";
+  } else if (liLedgerString == null) {
+      document.getElementById("connectNWCWalletInputFeedback").innerHTML = "Error: No Ledger selected.";
   }
 }
 
