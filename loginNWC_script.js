@@ -10,8 +10,9 @@ async function connectNWCWallet() {
   let liKeypairString = localStorage.getItem("liKeypair");
   if(liLedgerString !== null && liKeypairString !== null) {
     try {
+      document.getElementById("connectNWCWalletInputFeedback").innerHTML = "Loading.";
       let nwcConnectionDataString = document.getElementById("connectNWCWalletInput").value;
-      console.log("" + nwcConnectionDataString);
+      console.log(nwcConnectionDataString);
       let nwcConnectionData = NostrTools.nip47.parseConnectionString(nwcConnectionDataString);
       console.log(nwcConnectionData);
       let nwcInfoEvent = await getNwcInfoEvent(nwcConnectionData);
