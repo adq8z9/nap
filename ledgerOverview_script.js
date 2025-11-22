@@ -35,8 +35,6 @@ async function setLedgerViewTable() {
       } else {
         for (let i = 0; i < evLedgerAccountCategoryTree.length; i++) {
           ledgerViewListString += "<li>" + evLedgerAccountCategoryTree[i].root.name + "<ul>";
-          let roundNumber = 0;
-          ledgerViewListString += setCategoryLeafsList(evLedgerAccountCategoryTree[i].leafs, roundNumber);
           for (let m = 0; m < evLedgerAccounts.length; m++) {
             for (let n = 0; n < evLedgerAccounts[m].parent_id.length; n++) {
               if (evLedgerAccounts[m].parent_id[n] == evLedgerAccountCategoryTree[i].root.id) {
@@ -44,6 +42,8 @@ async function setLedgerViewTable() {
               }
             }
           }
+          let roundNumber = 0;
+          ledgerViewListString += setCategoryLeafsList(evLedgerAccountCategoryTree[i].leafs, evLedgerAccounts, roundNumber);
           ledgerViewListString += "</ul></li>";
         }
       }
@@ -73,6 +73,23 @@ async function setLedgerViewTable() {
   }
 }
 
-function setCategoryLeafsList(categoryLeafs, round) {
-  return "";
+function setCategoryLeafsList(categoryLeafs, accounts, round) {
+  let leafsListString = "";
+  if (round > 5) {
+    return leafsListString;
+  }
+  for (let i = 0; i < categoryLeafs.length; i++) {
+    leafsListString += "<li>" + categoryLeafs[i].root.name + "<ul>";
+    for (let m = 0; m < accounts.length; m++) {
+      for (let n = 0; n < accounts[m].parent_id.length; n++) {
+        if (accounts[m].parent_id[n] == categoryLeafs[i].root.id) {
+          leafsListString += "<li>" + accounts[m].id + " - " + accounts[m].name + "</li>";
+        }
+      }
+    }
+    let roundNumber = round + 1;
+    leafsListString += setCategoryLeafsList(categoryLeafs[i].leafs, roundNumber);
+    leafsListString += "</ul></li>";
+  }
+  return leafsListString;
 }
