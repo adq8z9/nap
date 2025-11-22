@@ -98,7 +98,8 @@ async function setLedgerEditTable() {
   let liKeypairString = localStorage.getItem("liKeypair");
   if(liLedgerString !== null && liKeypairString !== null) {
     try {
-      document.getElementById("ledgerEdit").innerHTML = "Loading.";
+      document.getElementById("ledgerEdit").innerHTML = "";
+      document.getElementById("editAndSaveFeedback").innerHTML = "Loading.";
       let liKeypair = JSON.parse(liKeypairString);
       let liLedger = JSON.parse(liLedgerString);
       let nAddrLedgerDec = NostrTools.nip19.decode(liLedger.naddr);
@@ -147,6 +148,7 @@ async function setLedgerEditTable() {
       }
       ledgerMetadataString += "<br><br>Accounting Units: " + ledgerEventContent.acc_units + "<br><br>Ledger accounts: <br>";
       console.log(ledgerMetadataString);*/
+      document.getElementById("editAndSaveFeedback").innerHTML = "";
       document.getElementById("ledgerEdit").innerHTML = "";
       document.getElementById("ledger_name").value = ledgerEventContent.name;
     } catch (error) {
