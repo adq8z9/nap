@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index_style.css">
     <script src="loginNWC_script.js"></script>
-	  <script src="index_script_logindata.js"></script>
+	<script src="index_script_logindata.js"></script>
     <script src="index_script_relaycomm.js"></script>
-	  <script src="nostr_tools.js"></script>
+	<script src="nostr_tools.js"></script>
   </head>
 
   <body onload="defaultOpen()">
@@ -21,15 +21,16 @@
     </div>
     
     <div class="content">
-	    <a class="menuLink" href="posting.html">&lt;--Back</a><br><br>
+	  <a class="menuLink" href="posting.html">&lt;--Back</a><br><br>
       <h3 class="contentTitle">NWC Log In</h3>
-	    <h4 class="contentSubTitle">connect nwc wallet:</h4>
-	    <p class="contentText" id="connectNWCWalletInfo">Currently connected nwc wallet: no nwc wallet selected</p>
+	  <h4 class="contentSubTitle">connect nwc wallet:</h4>
+	  <p class="contentText" id="connectNWCWalletInfo">Currently connected nwc wallet: no nwc wallet selected</p>
       <p class="contentText">Connect nwc wallet with nwc wallet connection uri in format nostr+walletconnect://...:</p>
       <input type="text" placeholder="Connect ledger with nostr+walletconnect://..." class="contentText" id="connectNWCWalletInput">
       <button onclick="connectNWCWallet()">Select</button>
-	    <p class="feedbackText" id="connectNWCWalletInputFeedback"></p>
-	    <p class="contentText" id="connectNWCWalletData"><br><b>Wallet Balance: </b><br><br>No nwc wallet selected.</p>
+	  <p class="feedbackText" id="connectNWCWalletInputFeedback"></p>
+	  <p style="color:red">Note: Don't use a wallet with serious amount of sats on it, just use a dedicated wallet for experimenting. If possible give 'read-only' permission for the nwc-connection only.</p>
+	  <p class="contentText" id="connectNWCWalletData"><br><b>Wallet Balance: </b><br><br>No nwc wallet selected.</p>
     </div>
 
     <div class="bottomnav">
