@@ -95,19 +95,6 @@ async function requestNwcEvent(nwcRequestEv, nwcConnection) {
     console.log("Relay authentication.");
     return NostrTools.finalizeEvent(eventA, nwcConnection.secret);
   }
-  await Promise.any(pool.publish(relays, nwcRequestEv, { onauth : authF }));
-  /*const requEvent = await pool.get(
-    relays,
-    {
-      ids: [nwcRequestEv.id],
-      authors: [nwcRequestEv.pubkey],
-      kinds: [13194]
-    },
-  );
-  console.log('Request-Event from Relay: ', requEvent);*/
-  /*console.log("Before delay");
-  await delay(10);
-  console.log("After delay");*/
   console.log("Receive nwc response event.");
   let respEvent = null; 
   await pool.subscribe(
@@ -123,8 +110,21 @@ async function requestNwcEvent(nwcRequestEv, nwcConnection) {
     }
   }
   );
+  await Promise.any(pool.publish(relays, nwcRequestEv, { onauth : authF }));
+  /*const requEvent = await pool.get(
+    relays,
+    {
+      ids: [nwcRequestEv.id],
+      authors: [nwcRequestEv.pubkey],
+      kinds: [13194]
+    },
+  );
+  console.log('Request-Event from Relay: ', requEvent);*/
+  /*console.log("Before delay");
+  await delay(10);
+  console.log("After delay");*/
   console.log("Before delay");
-  await delay(2);
+  await delay(3);
   console.log("After delay");
   console.log('Response-Event from Relay: ', respEvent);
   if(respEvent == null) { 
@@ -149,6 +149,7 @@ async function sendLedgerEntryEvent(leEvent, secK, relays) {
     {
       ids: [ leEvent.id ],
     },
+    { onauth : authF }
   );
   console.log('Event from Relay: ', event);
   if(event == null) { 
