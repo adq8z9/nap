@@ -46,7 +46,7 @@ async function setNWCView() {
       document.getElementById("connectNWCWalletInput").value = liNWC.connectionString;
       //Create data request
       document.getElementById("connectNWCWalletData").innerHTML = "";
-      document.getElementById("connectNWCWalletInputFeedback").innerHTML = "Loading.";
+      document.getElementById("connectNWCWalletDataFeedback").innerHTML = "Loading.";
       const nwcRequestContent = {
         "method": "get_balance", 
         "params": {},
@@ -61,19 +61,16 @@ async function setNWCView() {
       console.log(nwcRequest);
       let nwcResponseEvent = await requestNwcEvent(nwcRequest, liNWC.connectionData);
       console.log(nwcResponseEvent);
-      console.log(nwcResponseEvent.content);
-      console.log(liNWC.connectionData.secret);
-      console.log(NostrTools.getPublicKey(liNWC.connectionData.secret));
-      console.log(conversationKey);
       let responseContentDecrypted = NostrTools.nip44.decrypt(nwcResponseEvent.content, conversationKey);
       console.log(responseContentDecrypted);
       let response = JSON.parse(responseContentDecrypted);
       console.log(response);
-      let nwcData = "<br><b>Wallet Balance: </b><br><br>" + (response.result.balance/1000) + " sats";
+      let nwcData = (response.result.balance/1000) + " sats";
+      document.getElementById("connectNWCWalletDataFeedback").innerHTML = "";
       document.getElementById("connectNWCWalletData").innerHTML = nwcData;
       console.log("NWC View set.");
     } catch (error) {
-      document.getElementById("connectNWCWalletData").innerHTML = "Creating nwc wallet view failed: " + error;
+      document.getElementById("connectNWCWalletDataFeedback").innerHTML = "Creating nwc wallet view failed: " + error;
     } 
   } else if (liLedgerString == null) {
     document.getElementById("connectNWCWalletData").innerHTML = "No Ledger selected.";
