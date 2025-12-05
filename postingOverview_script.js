@@ -16,7 +16,9 @@ function setPostingViewTextBoxes() {
   }
 }
 
-async function setPostingOverview() {
+async function createPostingsView() {
+  document.getElementById("postingViewFeedback").innerHTML = "Loading.";
+  document.getElementById("postingViewList").innerHTML = "<li>coffee</li>";
   /*let liLedgerString = localStorage.getItem("liLedger");
   if(liLedgerString !== null) {
   try {
