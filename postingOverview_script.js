@@ -1,11 +1,23 @@
 function defaultOpen() {
   console.log("Start posting overview");
   setLoginData();
-  setLedgerEntryViewTable();
+  setPostingViewTextBoxes();
 }
 
-async function setLedgerEntryViewTable() {
+function setPostingViewTextBoxes() {
   let liLedgerString = localStorage.getItem("liLedger");
+  let liKeypairString = localStorage.getItem("liKeypair");
+  if(liLedgerString !== null && liKeypairString !== null) {
+    document.getElementById("postingView").innerHTML = "";
+  } else if (liLedgerString == null) {
+    document.getElementById("postingView").innerHTML = "No Ledger selected.";
+  } else if (liKeypairString == null) {
+    document.getElementById("postingView").innerHTML = "No accountant logged in.";
+  }
+}
+
+async function setPostingOverview() {
+  /*let liLedgerString = localStorage.getItem("liLedger");
   if(liLedgerString !== null) {
   try {
     let liLedger = JSON.parse(liLedgerString);
@@ -39,4 +51,5 @@ async function setLedgerEntryViewTable() {
     document.getElementById("ledgerEntryView").innerHTML = ledgerEntryFeedbackString;
   }
   }
+  */
 }
