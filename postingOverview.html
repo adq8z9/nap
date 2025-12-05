@@ -26,6 +26,18 @@
       <h3 class="contentTitle">Overview Postings</h3>
 	  <h4 class="contentSubTitle">view accounting ledger entries:</h4>
 	  <p id="postingView" class="contentText">No log in data. Log in first.</p>
+	  <form>
+        <label>From posting date: </label>
+        <input type="date" id="from_date">
+        <br>
+        <label>To posting date: </label>
+	    <input type="date" id="to_date"></input>
+	    <br>
+	    <label>Account: </label>
+	    <select id="acc_accounts"></select>
+	    <br>
+        <input type="button" value="show postings" onclick="createPostingsView()">
+      </form>
 	  <p id="postingViewFeedback" class="feedbackText"></p>
 	  <ul id="postingViewList" class="contentList"></ul>
     </div>
