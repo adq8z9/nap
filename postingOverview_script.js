@@ -17,8 +17,11 @@ function setPostingViewTextBoxes() {
 }
 
 async function createPostingsView() {
-  document.getElementById("postingViewFeedback").innerHTML = "Loading.";
-  document.getElementById("postingViewList").innerHTML = "<li>coffee</li>";
+  let liLedgerString = localStorage.getItem("liLedger");
+  let liKeypairString = localStorage.getItem("liKeypair");
+  if(liLedgerString !== null && liKeypairString !== null) {
+    document.getElementById("postingViewFeedback").innerHTML = "Loading.";
+    document.getElementById("postingViewList").innerHTML = "<li>coffee</li>";
   /*let liLedgerString = localStorage.getItem("liLedger");
   if(liLedgerString !== null) {
   try {
@@ -54,4 +57,11 @@ async function createPostingsView() {
   }
   }
   */
+  } else if (liLedgerString == null) {
+    document.getElementById("postingViewFeedback").innerHTML = "No Ledger selected.";
+    document.getElementById("postingViewList").innerHTML = "<li>...</li>";
+  } else if (liKeypairString == null) {
+    document.getElementById("postingViewFeedback").innerHTML = "No accountant logged in.";
+    document.getElementById("postingViewList").innerHTML = "<li>...</li>";
+  }
 }
