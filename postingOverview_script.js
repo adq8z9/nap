@@ -8,7 +8,7 @@ function setPostingViewTextBoxes() {
   let liLedgerString = localStorage.getItem("liLedger");
   let liKeypairString = localStorage.getItem("liKeypair");
   if(liLedgerString !== null && liKeypairString !== null) {
-    document.getElementById("postingView").innerHTML = "";
+    document.getElementById("postingView").innerHTML = "Select filters:";
   } else if (liLedgerString == null) {
     document.getElementById("postingView").innerHTML = "No Ledger selected.";
   } else if (liKeypairString == null) {
